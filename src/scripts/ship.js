@@ -12,4 +12,4 @@ const ship = (id, array) => {
   };
 };
 
-module.exports = ship;
+export default ship;
