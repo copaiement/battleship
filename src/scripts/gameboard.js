@@ -36,21 +36,29 @@ const gameboard = () => {
     if (checkShipPlacement(id, start, isVertical)) {
       // create ship array
       const array = [];
+      const len = shipLenLookup(id);
       if (!isVertical) {
-
+        const y = start[1];
+        for (let x = start[0]; x <= (len - 1); x++) {
+          array.push(`${x}${y}`);
+        }
       } else {
-
+        const x = start[0];
+        for (let y = start[1]; y <= (len - 1); y++) {
+          array.push(`${x}${y}`);
+        }
       }
 
       // create ship and add to player list
-      if (player === 'p1') p1Ships.push(ship(id, ))
-      else p2Ships.push(ship(id, ))
+      if (player === 'p1') p1Ships.push(ship(id, array));
+      else p2Ships.push(ship(id, array));
     }
   }
 
   function receiveAttack(move) {
 
   }
+  return { p1Ships, p2Ships, placeShip, receiveAttack };
 };
 
 export default gameboard;
