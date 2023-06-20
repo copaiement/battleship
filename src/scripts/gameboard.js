@@ -23,12 +23,15 @@ const gameboard = () => {
   }
 
   function checkShipPlacement(id, start, isVertical) {
+    const x = start.charAt(0);
+    const y = start.charAt(1);
     if (!isVertical) {
-      if (start[0] + shipLenLookup(id) > 10) return false;
+      // length check
+      if (x + shipLenLookup(id) > 9) return false;
       return true;
     }
 
-    if (start[1] + shipLenLookup(id) > 10) return false;
+    if (y + shipLenLookup(id) > 9) return false;
     return true;
   }
 
@@ -38,13 +41,13 @@ const gameboard = () => {
       const array = [];
       const len = shipLenLookup(id);
       if (!isVertical) {
-        const y = start[1];
-        for (let x = start[0]; x <= (len - 1); x++) {
+        const y = start.charAt(1);
+        for (let x = start.charAt(0); x <= (len - 1); x++) {
           array.push(`${x}${y}`);
         }
       } else {
-        const x = start[0];
-        for (let y = start[1]; y <= (len - 1); y++) {
+        const x = start.charAt(0);
+        for (let y = start.charAt(1); y <= (len - 1); y++) {
           array.push(`${x}${y}`);
         }
       }
@@ -55,10 +58,67 @@ const gameboard = () => {
     }
   }
 
-  function receiveAttack(move) {
-
+  function receiveAttack(attacker, move) {
+    if (attacker === 'p1') {
+      let hitMark = false;
+      // check against p2 ships
+      p2Ships.forEach((p2Ship) => {
+        // if ship not already sunk, check for hits
+        if (!p2Ship.isSunk()) {
+          p2Ship.array.forEach((pt) => {
+            if (pt === move) {
+              // log hit and set var to true
+              p2Ship.hit(move);
+              hitMark = true;
+              // check if ship is sunk
+              if (p2Ship.isSunk()) p2Sunk.push(p2Ship);
+            }
+          });
+        }
+      });
+      // if hit was logged, add to hits, else add to misses
+      if (hitMark) {
+        p2Hits.push(move);
+      } else {
+        p2Misses.push(move);
+      }
+    } else {
+      let hitMark = false;
+      // check against p1 ships
+      p1Ships.forEach((p1Ship) => {
+        // if ship not already sunk, check for hits
+        if (!p1Ship.isSunk()) {
+          p1Ship.array.forEach((pt) => {
+            if (pt === move) {
+              // log hit and set var to true
+              p1Ship.hit(move);
+              hitMark = true;
+              // check if ship is sunk
+              if (p1Ship.isSunk()) p1Sunk.push(p1Ship);
+            }
+          });
+        }
+      });
+      // if hit was logged, add to hits, else add to misses
+      if (hitMark) {
+        p1Hits.push(move);
+      } else {
+        p1Misses.push(move);
+      }
+    }
   }
-  return { p1Ships, p2Ships, placeShip, receiveAttack };
+  return {
+    p1Ships,
+    p2Ships,
+    p1Hits,
+    p2Hits,
+    p1Misses,
+    p2Misses,
+    p1Sunk,
+    p2Sunk,
+    placeShip,
+    receiveAttack,
+  };
 };
 
 export default gameboard;

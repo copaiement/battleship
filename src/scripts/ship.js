@@ -5,6 +5,7 @@ const ship = (id, array) => {
     hitsArray[array.findIndex((item) => item === move)] = 'X';
   }
   function isSunk() {
+    if (hitsArray.length !== array.length) return false;
     return hitsArray.every((marker) => marker === 'X');
   }
   return {
