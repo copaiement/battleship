@@ -1,15 +1,24 @@
 // create ship
 const ship = (id, array) => {
-  const hitsArray = [];
+  // ship setup
+  const shipType = id;
+  const position = array;
+  const hits = [];
+
   function hit(move) {
-    hitsArray[array.findIndex((item) => item === move)] = 'X';
+    hits.push(move);
   }
+
   function isSunk() {
-    if (hitsArray.length !== array.length) return false;
-    return hitsArray.every((marker) => marker === 'X');
+    return this.position.every((pos) => this.hits.includes(pos));
   }
+
   return {
-    id, array, hitsArray, isSunk, hit,
+    shipType,
+    position,
+    hits,
+    hit,
+    isSunk,
   };
 };
 

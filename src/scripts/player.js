@@ -1,5 +1,5 @@
 import gameboard from './gameboard';
-import ship from './ship';
+import { getRandCoord, randOffset } from './helpers';
 
 const player = () => {
   function shootNextTo(sunkHits, hits, misses) {
@@ -61,22 +61,6 @@ const player = () => {
     return `${fixed}${nextLinear}`;
   }
 
-  function randOffset(start) {
-    const randOffsets = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-    const offset = randOffsets[Math.floor(Math.random() * randOffsets.length)];
-    const x = parseInt(start.charAt(0), 10) + offset[0];
-    const y = parseInt(start.charAt(1), 10) + offset[1];
-
-    if (x < 0 || x > 9 || y < 0 || y > 9) return randOffset(start);
-    return `${x}${y}`;
-  }
-
-  function getRandCoord() {
-    const x = Math.floor(Math.random() * 10);
-    const y = Math.floor(Math.random() * 10);
-    return `${x}${y}`;
-  }
-
   function shootNew(hits, misses) {
     let newCoord = getRandCoord();
     while (hits.includes(newCoord) || misses.includes(newCoord)) {
@@ -88,6 +72,7 @@ const player = () => {
   function computerTurn() {
     // get all previous plays
     const hits = gameboard.p1Hits;
+    console.log(hits);
     const misses = gameboard.p1Misses;
     const sunk = gameboard.p1Sunk;
 
@@ -105,6 +90,7 @@ const player = () => {
       gameboard.receiveAttack('p2', shootNew(hits, misses));
     }
   }
+
   return {
     computerTurn,
   };
