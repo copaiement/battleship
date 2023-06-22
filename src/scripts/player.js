@@ -15,7 +15,10 @@ const player = () => {
         move = randOffset(uniqueHits[0]);
       }
       return move;
-    } else {
+    }
+    // otherwise shoot along the current line
+    // test first two entries of uniqueHits for direction
+    if (uniqueHits[0].charAt(0) === uniqueHits[1].charAt(0)) {
 
     }
   }
@@ -23,10 +26,10 @@ const player = () => {
   function randOffset(start) {
     const randOffsets = [[0, 1], [0, -1], [1, 0], [-1, 0]];
     const offset = randOffsets[Math.floor(Math.random() * randOffsets.length)];
-    let x = parseInt(start.charAt(0), 10) + offset[0];
-    let y = parseInt(start.charAt(1), 10) + offset[1];
-    
-    if (x < 0 || x > 9 || y < 0 || y > 9) return randOffset(start); 
+    const x = parseInt(start.charAt(0), 10) + offset[0];
+    const y = parseInt(start.charAt(1), 10) + offset[1];
+
+    if (x < 0 || x > 9 || y < 0 || y > 9) return randOffset(start);
     return `${x}${y}`;
   }
 
