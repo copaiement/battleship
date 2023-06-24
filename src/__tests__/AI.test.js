@@ -26,8 +26,17 @@ test('AI Play Test - MED - Two hits', () => {
   game.receiveAttack('20');
   game.receiveAttack('30');
   const play = AIPlay('med', game);
-  console.log(game.hits);
   expect(play).toEqual(expect.stringMatching(/10|40/));
+});
+
+test('AI Play Test - MED - Two hits plus boundaries', () => {
+  const game = gameboard();
+  game.placeShip('D1', '00', false);
+  game.receiveAttack('00');
+  game.receiveAttack('20');
+  game.receiveAttack('30');
+  const play = AIPlay('med', game);
+  expect(play).toBe('10');
 });
 
 

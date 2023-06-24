@@ -23,8 +23,9 @@ function linearOffset(directionArr, direction, fixed) {
     nextLinear = maxMin[0] + 1;
   // if no bounds, pick random from max and min
   } else {
-    const rand = Math.floor(Math.random() * maxMin.length);
-    nextLinear = maxMin[rand];
+    const rand = Math.floor(Math.random() * 2);
+    // add or subtract one based on choice
+    nextLinear = rand === 0 ? maxMin[0] + 1 : maxMin[1] - 1;
   }
 
   if (direction === 'x') {
@@ -51,6 +52,7 @@ function shootNextTo(sunkHits, hits, misses) {
   hits.forEach((hit) => {
     if (!sunkHits.includes(hit)) uniqueHits.push(hit);
   });
+  console.log(uniqueHits);
   // if there is only one unique hit, just randomly shoot next to it
   if (uniqueHits.length === 1) {
     let move = randOffset(uniqueHits[0]);
@@ -64,19 +66,20 @@ function shootNextTo(sunkHits, hits, misses) {
   const directionArr = [];
   let direction;
   let fixed;
-  if (uniqueHits[0].charAt(0) === uniqueHits[1].charAt(0)) {
-    uniqueHits.forEach((hit) => directionArr.push(parseInt(hit.charAt(1), 10)));
-    direction = 'y';
-    fixed = uniqueHits[0].charAt(0);
-  } else {
+  if (uniqueHits[0].charAt(1) === uniqueHits[1].charAt(1)) {
     uniqueHits.forEach((hit) => directionArr.push(parseInt(hit.charAt(0), 10)));
     direction = 'x';
     fixed = uniqueHits[0].charAt(1);
+  } else {
+    uniqueHits.forEach((hit) => directionArr.push(parseInt(hit.charAt(1), 10)));
+    direction = 'y';
+    fixed = uniqueHits[0].charAt(0);
   }
 
   let move = linearOffset(directionArr, direction, fixed);
-  while ((hits.includes(move) && !uniqueHits.includes(move)) || misses.includes(move)) {
+  while (hits.includes(move) || misses.includes(move)) {
     move = linearOffset(directionArr, direction, fixed);
+    console.log(move);
   }
   return move;
 }
