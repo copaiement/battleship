@@ -58,7 +58,7 @@ const gameboard = () => {
 
   function receiveAttack(move) {
     let hitMark = false;
-    // check against p2 ships
+    // check against enemy ships
     ships.forEach((shp) => {
       // if ship not already sunk, check for hits
       if (!shp.isSunk()) {

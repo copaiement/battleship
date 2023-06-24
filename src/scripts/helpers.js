@@ -16,19 +16,7 @@ function getRandCoord() {
   return `${x}${y}`;
 }
 
-// random offset of one square from start
-function randOffset(start) {
-  const randOffsets = [[0, 1], [0, -1], [1, 0], [-1, 0]];
-  const offset = randOffsets[Math.floor(Math.random() * randOffsets.length)];
-  const x = parseInt(start.charAt(0), 10) + offset[0];
-  const y = parseInt(start.charAt(1), 10) + offset[1];
-
-  if (x < 0 || x > 9 || y < 0 || y > 9) return randOffset(start);
-  return `${x}${y}`;
-}
-
 export {
   shipLengths,
   getRandCoord,
-  randOffset,
 };
