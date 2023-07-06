@@ -1,0 +1,52 @@
+
+.content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 24px;
+}
+
+.playerBoard {
+    display: grid;
+    width: 600px;
+    height: 600px;
+    grid-template-rows: repeat(10, 1fr);
+    grid-template-columns: repeat(10, 1fr);
+}
+
+.computerBoard {
+    display: grid;
+    width: 600px;
+    height: 600px;
+    grid-template-rows: repeat(10, 1fr);
+    grid-template-columns: repeat(10, 1fr);
+}
+
+.square {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    pointer-events: none;
+}
+
+.empty {
+    background-color: aquamarine;
+}
+
+.instructions {
+    background-color: antiquewhite;
+    font-size: larger;
+    padding: 0px 16px;
+}
+
+.hidden {
+    /* display: none; */
+    opacity: 0;
+    transition: opacity 500ms ease-in-out
+}
