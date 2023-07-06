@@ -1,6 +1,4 @@
 import AIPlay from './AI';
-import gameboard from './gameboard';
-import { getRandCoord, randOffset } from './helpers';
 
 const player = () => {
   function computerTurn(AIMode, enemyBoard) {
