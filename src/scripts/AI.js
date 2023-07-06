@@ -13,25 +13,30 @@ function shootNew(hits, misses) {
 
 function linearOffset(directionArr, direction, fixed) {
   // find min and max of directionArr
-  const maxMin = [Math.max(...directionArr), Math.min(...directionArr)];
+  const minMax = [Math.min(...directionArr), Math.max(...directionArr)];
   let nextLinear;
-  // if max = 9, use min plus offset
-  if (maxMin[0] >= 9) {
-    nextLinear = maxMin[1] - 1;
-  // if min = 0, use max plus offset
-  } else if (maxMin[1] <= 0) {
-    nextLinear = maxMin[0] + 1;
-  // if no bounds, pick random from max and min
-  } else {
-    const rand = Math.floor(Math.random() * 2);
-    // add or subtract one based on choice
-    nextLinear = rand === 0 ? maxMin[0] + 1 : maxMin[1] - 1;
+
+  // make new array of possible values
+  let poss = [];
+  for (let i = minMax[0] + 1; i <= minMax[1]; i++) {
+    poss.push(i);
   }
+  // if max <= 8, add new possible max
+  if (minMax[1] >= 8) {
+    poss.push(minMax[1] + 1);
+  } 
+  // if min >= 1, add new possible min
+  if (minMax[0] >= 1) {
+    poss.push(minMax[0] - 1)
+  }
+
+  // pick a random value from possibles and return
+  nextLinear = poss[Math.floor(Math.random() * poss.length)];
+
 
   if (direction === 'x') {
     return `${nextLinear}${fixed}`;
   }
-
   return `${fixed}${nextLinear}`;
 }
 
@@ -52,7 +57,6 @@ function shootNextTo(sunkHits, hits, misses) {
   hits.forEach((hit) => {
     if (!sunkHits.includes(hit)) uniqueHits.push(hit);
   });
-  console.log(uniqueHits);
   // if there is only one unique hit, just randomly shoot next to it
   if (uniqueHits.length === 1) {
     let move = randOffset(uniqueHits[0]);
@@ -79,7 +83,6 @@ function shootNextTo(sunkHits, hits, misses) {
   let move = linearOffset(directionArr, direction, fixed);
   while (hits.includes(move) || misses.includes(move)) {
     move = linearOffset(directionArr, direction, fixed);
-    console.log(move);
   }
   return move;
 }
