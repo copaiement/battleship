@@ -22,3 +22,5 @@ function initializeGameboard() {
         }
     }
 }
+
+export default initializeGameboard;
