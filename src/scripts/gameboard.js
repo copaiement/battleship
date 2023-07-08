@@ -15,16 +15,16 @@ const gameboard = () => {
 
     // check against boundary
     if (!isVertical) {
-      if (x + shipLengths(id) > 9) return false;
+      if (x + (shipLengths(id)-1) >= 10) return false;
     } else {
-      if (y + shipLengths(id) > 9) return false;
+      if (y + (shipLengths(id)-1) >= 10) return false;
     }
 
     // check against existing ships
-    if (ships.length != 0) {
+    if (ships.length !== 0) {
       // create array of desired ship placement
       const shipPlace = [];
-      for (let i = 0; i <= shipLengths(id); i++) {
+      for (let i = 0; i < shipLengths(id); i++) {
         if (!isVertical) {
           shipPlace.push(`${x + i}${y}`);
         } else {
@@ -32,18 +32,16 @@ const gameboard = () => {
         }
       }
       // create array of all current ship placements
-      const currShips = [];
+      let currShips = [];
       ships.forEach(currShip => {
         currShip.position.forEach(val => {
           currShips.push(val)
         });
       });
       // check desired array against current array
-      shipPlace.forEach(place => {
-        for (let i = 0; i < currShips.length; i++) {
-          if (place === currShips[i]) return false;
-        }
-      });
+      let repeat = currShips.filter(val => shipPlace.includes(val));
+      console.log(repeat);
+      if (repeat.length !== 0) return false;
     }
 
     return true;
@@ -56,17 +54,17 @@ const gameboard = () => {
     if (!isVertical) {
       const y = parseInt(start.charAt(1));
       const x = parseInt(start.charAt(0));
-      for (let i = x; i <= (len - 1); i++) {
+      for (let i = x; i < (x + len); i++) {
         array.push(`${i}${y}`);
       }
     } else {
       const y = parseInt(start.charAt(1));
       const x = parseInt(start.charAt(0));
-      for (let j = y; j <= (len - 1); j++) {
+      for (let j = y; j < (y + len); j++) {
         array.push(`${x}${j}`);
       }
     }
-    //console.log(array, len);
+    console.log(array, len);
     // create ship and add to player list
     ships.push(ship(id, array));
   }
