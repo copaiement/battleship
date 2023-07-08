@@ -8,16 +8,45 @@ const gameboard = () => {
   const hits = [];
   const misses = [];
 
+  // NEED TO ADD COLLISION DETECTION WITH OTHER SHIPS
   function checkShipPlacement(id, start, isVertical) {
-    const x = start.charAt(0);
-    const y = start.charAt(1);
+    const x = parseInt(start.charAt(0));
+    const y = parseInt(start.charAt(1));
+
+    // check against boundary
     if (!isVertical) {
-      // length check
       if (x + shipLengths(id) > 9) return false;
-      return true;
+    } else {
+      if (y + shipLengths(id) > 9) return false;
     }
 
-    if (y + shipLengths(id) > 9) return false;
+    // check against existing ships
+    if (ships.length != 0) {
+      // create array of desired ship placement
+      const shipPlace = [];
+      for (let i = 0; i <= shipLengths(id); i++) {
+        if (!isVertical) {
+          shipPlace.push(`${x + i}${y}`);
+        } else {
+          shipPlace.push(`${x}${y + i}`);
+        }
+      }
+      console.log(shipPlace);
+      // create array of all current ship placements
+      const currShips = [];
+      ships.forEach(currShip => {
+        currShip.position.forEach(val => {
+          currShips.push(val)
+        });
+      });
+      // check desired array against current array
+      shipPlace.forEach(place => {
+        for (let i = 0; i < currShips.length; i++) {
+          if (place === currShips[i]) return false;
+        }
+      });
+    }
+
     return true;
   }
 
@@ -27,14 +56,16 @@ const gameboard = () => {
       const array = [];
       const len = shipLengths(id);
       if (!isVertical) {
-        const y = start.charAt(1);
-        for (let x = start.charAt(0); x <= (len - 1); x++) {
-          array.push(`${x}${y}`);
+        const y = parseInt(start.charAt(1));
+        const x = parseInt(start.charAt(0));
+        for (let i = x; i <= (len - 1); i++) {
+          array.push(`${i}${y}`);
         }
       } else {
-        const x = start.charAt(0);
-        for (let y = start.charAt(1); y <= (len - 1); y++) {
-          array.push(`${x}${y}`);
+        const y = parseInt(start.charAt(1));
+        const x = parseInt(start.charAt(0));
+        for (let j = y; j <= (len - 1); j++) {
+          array.push(`${x}${j}`);
         }
       }
 

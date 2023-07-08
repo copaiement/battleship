@@ -4,8 +4,8 @@ import './style.css';
 
 // testing 
 const game = gameboard();
-game.placeShip('A', '00', false);
-console.log(game.ships[0].position);
+game.autoPlaceShips();
+console.log(game.ships);
 const domfunc = domFunctions();
 domfunc.buildGameboards();
 domfunc.displayShip(game.ships);
