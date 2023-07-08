@@ -36,6 +36,8 @@ const domFunctions = () => {
         });
     }
 
+    function 
+
     return {
         buildGameboards,
         displayShip,
