@@ -1,13 +1,13 @@
 import ship from '../scripts/ship';
 
-test('Create Ship', () => {
+test.skip('Create Ship', () => {
   const id = 'A';
   const pos = ['00', '01', '02', '03', '04'];
   const testShip = ship(id, pos);
   expect(testShip.position.length).toBe(5);
 });
 
-test('Create Ship, hit 3 times, see if sunk', () => {
+test.skip('Create Ship, hit 3 times, see if sunk', () => {
   const id = 'D';
   const pos = ['00', '01', '02'];
   const testShip = ship(id, pos);

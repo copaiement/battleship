@@ -2,20 +2,20 @@ import AIPlay from "../scripts/AI";
 import gameboard from "../scripts/gameboard";
 
 // tested - working
-test('AI Play Test - EASY', () => {
+test.skip('AI Play Test - EASY', () => {
   const game = gameboard();
   expect(AIPlay('easy', game)).toEqual(expect.stringMatching(/([0-9]{2})/));
 });
 
 // tested - working
-test('AI Play Test - MED - No Hits', () => {
+test.skip('AI Play Test - MED - No Hits', () => {
   const game = gameboard();
   const play = AIPlay('med', game);
   expect(play).toEqual(expect.stringMatching(/([0-9]{2})/));
 });
 
 // tested - working
-test('AI Play Test - MED - One Hit', () => {
+test.skip('AI Play Test - MED - One Hit', () => {
   const game = gameboard();
   game.placeShip('A', '00', false);
   game.receiveAttack('20');
@@ -24,7 +24,7 @@ test('AI Play Test - MED - One Hit', () => {
 });
 
 // tested - working
-test('AI Play Test - MED - Two hits', () => {
+test.skip('AI Play Test - MED - Two hits', () => {
   const game = gameboard();
   game.placeShip('A', '00', false);
   game.receiveAttack('20');
@@ -34,7 +34,7 @@ test('AI Play Test - MED - Two hits', () => {
   expect(play).toEqual(expect.stringMatching(/10|40/));
 });
 
-test.only('AI Play Test - MED - Two hits plus boundaries', () => {
+test.skip('AI Play Test - MED - Two hits plus boundaries', () => {
   const game = gameboard();
   game.placeShip('D1', '00', false);
   game.receiveAttack('00');

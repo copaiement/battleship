@@ -9,6 +9,8 @@ const domFunctions = () => {
                 square.classList.add('square');
                 square.classList.add('empty');
                 square.id = `p${x}${y}`;
+                // add square ID as text
+                square.innerHTML = `${x}${y}`;
                 playerBoard.appendChild(square);
             }
         }

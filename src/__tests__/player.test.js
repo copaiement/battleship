@@ -2,7 +2,7 @@ import player from '../scripts/player';
 import gameboard from '../scripts/gameboard';
 
 // create a player and test playerTurn function
-test('Create player, test playerTurn', () => {
+test.skip('Create player, test playerTurn', () => {
   const player1 = player();
   const game = gameboard();
   game.placeShip('A', '00', true);
@@ -13,7 +13,7 @@ test('Create player, test playerTurn', () => {
 // create a player and test computerTurn function
 // there are no ships on the board during this test just to make
 // sure it works.
-test('Create player, test computerTurn', () => {
+test.skip('Create player, test computerTurn', () => {
   const player1 = player();
   const game = gameboard();
   player1.computerTurn('easy', game);

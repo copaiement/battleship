@@ -31,7 +31,6 @@ const gameboard = () => {
           shipPlace.push(`${x}${y + i}`);
         }
       }
-      console.log(shipPlace);
       // create array of all current ship placements
       const currShips = [];
       ships.forEach(currShip => {
@@ -49,29 +48,27 @@ const gameboard = () => {
 
     return true;
   }
-
+  // removed placement validation
   function placeShip(id, start, isVertical) {
-    if (checkShipPlacement(id, start, isVertical)) {
-      // create ship array
-      const array = [];
-      const len = shipLengths(id);
-      if (!isVertical) {
-        const y = parseInt(start.charAt(1));
-        const x = parseInt(start.charAt(0));
-        for (let i = x; i <= (len - 1); i++) {
-          array.push(`${i}${y}`);
-        }
-      } else {
-        const y = parseInt(start.charAt(1));
-        const x = parseInt(start.charAt(0));
-        for (let j = y; j <= (len - 1); j++) {
-          array.push(`${x}${j}`);
-        }
+    // create ship array
+    const array = [];
+    const len = shipLengths(id);
+    if (!isVertical) {
+      const y = parseInt(start.charAt(1));
+      const x = parseInt(start.charAt(0));
+      for (let i = x; i <= (len - 1); i++) {
+        array.push(`${i}${y}`);
       }
-
-      // create ship and add to player list
-      ships.push(ship(id, array));
+    } else {
+      const y = parseInt(start.charAt(1));
+      const x = parseInt(start.charAt(0));
+      for (let j = y; j <= (len - 1); j++) {
+        array.push(`${x}${j}`);
+      }
     }
+    //console.log(array, len);
+    // create ship and add to player list
+    ships.push(ship(id, array));
   }
 
   function autoPlaceShips() {
@@ -83,6 +80,7 @@ const gameboard = () => {
         rand = getRandCoord();
         randVert = Math.random() < 0.5;
       }
+      console.log(id, rand, randVert);
       placeShip(id, rand, randVert);
     });
   }

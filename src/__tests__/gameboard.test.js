@@ -21,9 +21,10 @@ test('Test receiveAttack', () => {
   expect(game.misses.length).toBe(1);
 });
 
-test('Auto place ships', () => {
+test.only('Auto place ships', () => {
   const game = gameboard();
   game.autoPlaceShips();
+  console.log(game.ships);
   expect(game.ships.length).toBe(5);
 });
 
