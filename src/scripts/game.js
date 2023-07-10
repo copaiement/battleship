@@ -37,22 +37,13 @@ const game = () => {
     // player fire
     function playerFire(move) {
         let attack = user.playerTurn(move, computerBoard);
-        updateBoard('computer', decodeAttack(attack));
+        updateBoard('computer', attack);
     }
 
     // computer fire
     function computerFire() {
         let attack = computer.computerTurn(AIMode, playerBoard);
-        updateBoard('player', decodeAttack(attack));
-    }
-
-    // decode attack return value
-    function decodeAttack(value) {
-        if (value[0] === 'sunk') {
-            return [value[0], value[2]];
-        } else {
-            return value;
-        }
+        updateBoard('player', attack);
     }
 
     // check for win

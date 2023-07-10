@@ -85,6 +85,7 @@ const gameboard = () => {
 
   function receiveAttack(move) {
     let hitMark = false;
+    let sunkMark = false;
     // create a return value variable
     const returnVal = [];
     // check against enemy ships
@@ -99,20 +100,24 @@ const gameboard = () => {
             // check if ship is sunk
             if (shp.isSunk()) {
               sunk.push(shp);
-              returnVal.push('sunk'); 
+              sunkMark = true;
+              returnVal.push(shp.shipType, shp.position); 
             }
           }
         });
       }
     });
     // if hit was logged, add to hits, else add to misses
-    if (hitMark) {
+    // update return value
+    if (hitMark && sunkMark) {
+      hits.push(move);
+    } else if (hitMark) {
       hits.push(move);
       returnVal.push('hit');
       returnVal.push(move);
     } else {
       misses.push(move);
-      returnVal.push('hit');
+      returnVal.push('miss');
       returnVal.push(move);
     }
     return returnVal;

@@ -36,28 +36,39 @@ const domFunctions = () => {
         });
     }
 
+    // update boards with new attacks
     function updateBoard(target, attack) {
         // cell id variable
         let cellID;
+        let modifier;
         if (target === 'player') {
-            cellID = document.getElementById(`p${attack[1]}`);
+            modifier = 'p';
         } else {
-            cellID = document.getElementById(`c${attack[1]}`);
+            modifier = 'c';
         }
 
+        cellID = document.getElementById(`${modifier}${attack[1]}`);
         // update cell based on attack value
-        if (attack[0] === 'hit' || attack[0] === 'sunk') {
+        if (attack[0] === 'hit') {
             cellID.classList.remove('ship');
             cellID.classList.add('hit');
-        } else {
+        } else if (attack[0] === 'miss') {
             cellID.classList.remove('empty');
             cellID.classList.add('miss');
+        } else {
+            updateShipList(target, attack[0]);
+            animateSinking(attack[1]);
         }
+    }
 
-        // update sunk ships
-        if (attack[0] === 'sunk') {
-            
-        }
+    // animate ship sinking
+    function animateSinking() {
+
+    }
+
+    // update visible list of ships with new sunk ships
+    function updateShipList(target, shipType) {
+
     }
 
     return {

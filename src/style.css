@@ -60,6 +60,10 @@ body {
     background-color: blue;
 }
 
+.sunk {
+    background-color: #535353;
+}
+
 .empty {
     background-color: aquamarine;
 }
