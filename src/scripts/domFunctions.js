@@ -36,11 +36,34 @@ const domFunctions = () => {
         });
     }
 
-    function 
+    function updateBoard(target, attack) {
+        // cell id variable
+        let cellID;
+        if (target === 'player') {
+            cellID = document.getElementById(`p${attack[1]}`);
+        } else {
+            cellID = document.getElementById(`c${attack[1]}`);
+        }
+
+        // update cell based on attack value
+        if (attack[0] === 'hit' || attack[0] === 'sunk') {
+            cellID.classList.remove('ship');
+            cellID.classList.add('hit');
+        } else {
+            cellID.classList.remove('empty');
+            cellID.classList.add('miss');
+        }
+
+        // update sunk ships
+        if (attack[0] === 'sunk') {
+            
+        }
+    }
 
     return {
         buildGameboards,
         displayShip,
+        updateBoard,
     }
 }
 

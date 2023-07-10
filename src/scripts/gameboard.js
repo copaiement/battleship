@@ -115,6 +115,7 @@ const gameboard = () => {
       returnVal.push('hit');
       returnVal.push(move);
     }
+    return returnVal;
   }
   return {
     ships,

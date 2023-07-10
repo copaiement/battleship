@@ -3,11 +3,11 @@ import AIPlay from './AI';
 const player = () => {
   function computerTurn(AIMode, enemyBoard) {
     // get AI Play
-    enemyBoard.receiveAttack(AIPlay(AIMode, enemyBoard));
+    return enemyBoard.receiveAttack(AIPlay(AIMode, enemyBoard));
   }
 
   function playerTurn(move, enemyBoard) {
-    enemyBoard.receiveAttack(move);
+    return enemyBoard.receiveAttack(move);
   }
 
   return {

@@ -1,5 +1,6 @@
 import gameboard from "./gameboard";
 import player from "./player";
+import domFunctions from "./domFunctions";
 
 // main game loop
 
@@ -36,13 +37,13 @@ const game = () => {
     // player fire
     function playerFire(move) {
         let attack = user.playerTurn(move, computerBoard);
-        decodeAttack(attack);
+        updateBoard('computer', decodeAttack(attack));
     }
 
     // computer fire
     function computerFire() {
         let attack = computer.computerTurn(AIMode, playerBoard);
-        decodeAttack(attack);
+        updateBoard('player', decodeAttack(attack));
     }
 
     // decode attack return value

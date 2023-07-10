@@ -64,6 +64,14 @@ body {
     background-color: aquamarine;
 }
 
+.hit {
+    background-color: red;
+}
+
+.miss {
+    background-color: yellow;
+}
+
 .instructions {
     background-color: antiquewhite;
     font-size: larger;
