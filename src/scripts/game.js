@@ -1,4 +1,5 @@
 import gameboard from "./gameboard";
+import player from "./player";
 
 // main game loop
 
@@ -18,6 +19,7 @@ const game = () => {
     // create players
     const user = player();
     const computer = player();
+    const AIMode = 'easy';
 
     // create initial gameboards
     let playerBoard = gameboard();
@@ -31,9 +33,25 @@ const game = () => {
         computerBoard.autoPlaceShips();
     }
     
+    // player fire
+    function playerFire(move) {
+        let attack = user.playerTurn(move, computerBoard);
+        decodeAttack(attack);
+    }
+
     // computer fire
     function computerFire() {
-        
+        let attack = computer.computerTurn(AIMode, playerBoard);
+        decodeAttack(attack);
+    }
+
+    // decode attack return value
+    function decodeAttack(value) {
+        if (value[0] === 'sunk') {
+            return [value[0], value[2]];
+        } else {
+            return value;
+        }
     }
 
     // check for win
