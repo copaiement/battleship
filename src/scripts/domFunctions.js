@@ -12,11 +12,10 @@ const domFunctions = () => {
                 square.classList.add('square');
                 square.classList.add('empty');
                 square.id = `p${x}${y}`;
-                // add square ID as text
-                square.innerHTML = `${x}${y}`;
                 playerBoard.appendChild(square);
             }
         }
+
         const computerBoard = document.querySelector('.computerBoard');
         for (let y = 0; y <= 9; y++) {
             for (let x = 0; x <= 9; x++) {
@@ -24,21 +23,31 @@ const domFunctions = () => {
                 square.classList.add('square');
                 square.classList.add('empty');
                 square.id = `c${x}${y}`;
-                listenCells.push(`c${x}${y}`);
+                listenCells.push(square.id);
                 computerBoard.appendChild(square);
-                addBoardListener(square);
             }
         }
     }
 
-    // add event listener to cell
-    function addBoardListener(cell) {
-        cell.addEventListener();
+    // add event listeners to cells
+    function addBoardListener(listenCells) {
+        listenCells.forEach(cellId => {
+            let cell = document.getElementById(cellId);
+            cell.addEventListener();
+        })
     }
 
-    // remove event listener from cell
-    function removeBoardListener(cell) {
-        cell.removeEventListener();
+    // remove all event listeners
+    function removeBoardListeners(listenCells){
+        listenCells.forEach(cellId => {
+            let cell = document.getElementById(cellId);
+            cell.removeEventListener();
+        })
+    }
+
+    // remove one listener from array
+    function removeListenerFromArray(cell) {
+        
     }
     
     function displayShip(shipsArray) {
@@ -64,7 +73,7 @@ const domFunctions = () => {
 
         cellID = document.getElementById(`${modifier}${attack[1]}`);
         // remove cell event listener if computer board
-        if (modifier === c) removeBoardListener(cellID);
+        if (modifier === c) removeListenerFromArray(`${modifier}${attack[1]}`);
 
         // update cell based on attack value
         if (attack[0] === 'hit') {
@@ -75,12 +84,12 @@ const domFunctions = () => {
             cellID.classList.add('miss');
         } else {
             updateShipList(target, attack[0]);
-            animateSinking(attack[1]);
+            animateSinking(target, attack[1]);
         }
     }
 
     // animate ship sinking
-    function animateSinking() {
+    function animateSinking(target, shipArray) {
 
     }
 
