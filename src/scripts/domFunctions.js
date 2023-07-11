@@ -26,18 +26,19 @@ const domFunctions = () => {
                 square.id = `c${x}${y}`;
                 listenCells.push(`c${x}${y}`);
                 computerBoard.appendChild(square);
+                addBoardListener(square);
             }
         }
     }
 
     // add event listener to cell
-    function addBoardListener() {
-
+    function addBoardListener(cell) {
+        cell.addEventListener();
     }
 
     // remove event listener from cell
-    function removeBoardListener(cellID) {
-        cellID.removeEventListener();
+    function removeBoardListener(cell) {
+        cell.removeEventListener();
     }
     
     function displayShip(shipsArray) {
