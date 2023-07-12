@@ -30,7 +30,7 @@ const domFunctions = () => {
     }
 
     // add event listeners to cells
-    function addBoardListener(listenCells) {
+    function addBoardListeners() {
         listenCells.forEach(cellId => {
             let cell = document.getElementById(cellId);
             cell.addEventListener();
@@ -38,7 +38,7 @@ const domFunctions = () => {
     }
 
     // remove all event listeners
-    function removeBoardListeners(listenCells){
+    function removeBoardListeners(){
         listenCells.forEach(cellId => {
             let cell = document.getElementById(cellId);
             cell.removeEventListener();
@@ -47,7 +47,8 @@ const domFunctions = () => {
 
     // remove one listener from array
     function removeListenerFromArray(cell) {
-        
+        const index = listenCells.IndexOf(cell);
+        listenCells.splice(index, 1);
     }
     
     function displayShip(shipsArray) {
@@ -71,25 +72,42 @@ const domFunctions = () => {
             modifier = 'c';
         }
 
-        cellID = document.getElementById(`${modifier}${attack[1]}`);
-        // remove cell event listener if computer board
-        if (modifier === c) removeListenerFromArray(`${modifier}${attack[1]}`);
-
-        // update cell based on attack value
-        if (attack[0] === 'hit') {
-            cellID.classList.remove('ship');
-            cellID.classList.add('hit');
-        } else if (attack[0] === 'miss') {
-            cellID.classList.remove('empty');
-            cellID.classList.add('miss');
-        } else {
+        // if ship was sunk, update visible list, animate sinking
+        if (attack[0] !== 'hit' && attack[0] !== 'miss') {
             updateShipList(target, attack[0]);
             animateSinking(target, attack[1]);
+        } else {
+            cellID = document.getElementById(`${modifier}${attack[1]}`);
+            // remove cell event listener if computer board
+            if (modifier === c) removeListenerFromArray(`${modifier}${attack[1]}`);
+
+            // update cell based on attack value
+            if (attack[0] === 'hit') {
+                cellID.classList.remove('ship');
+                cellID.classList.add('hit');
+                animateShot(target, attack[1]);
+            } else {
+                cellID.classList.remove('empty');
+                cellID.classList.add('miss');
+                animateShot(target, attack[1]);
+            }
+        }
+
+        // add or remove event listeners based on player
+        if (target === 'player') {
+            addBoardListeners();
+        } else {
+            removeBoardListeners();
         }
     }
 
     // animate ship sinking
     function animateSinking(target, shipArray) {
+
+    }
+
+    // animate a single shot
+    function animateShot(target, shot) {
 
     }
 
