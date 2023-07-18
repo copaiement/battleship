@@ -85,11 +85,11 @@ const domFunctions = () => {
             if (attack[0] === 'hit') {
                 cellID.classList.remove('ship');
                 cellID.classList.add('hit');
-                animateShot(target, attack[1]);
+                animateShot(target, attack[1], 'hit', cellID);
             } else {
                 cellID.classList.remove('empty');
                 cellID.classList.add('miss');
-                animateShot(target, attack[1]);
+                animateShot(target, attack[1], 'miss', cellID);
             }
         }
 
@@ -103,7 +103,20 @@ const domFunctions = () => {
 
     // animate ship sinking
     function animateSinking(target, shipArray) {
-
+        let modifier;
+        if (target === 'player') {
+            modifier = 'p';
+        } else {
+            modifier = 'c';
+        }
+        
+        const delay = 1000;
+        let promise = Promise.resolve();
+        shipArray.forEach(pos => {
+            promise = promise.then(() => {
+                document.getElementById
+            })
+        })
     }
 
     // animate a single shot
