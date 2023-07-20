@@ -110,11 +110,13 @@ const domFunctions = () => {
             modifier = 'c';
         }
         
-        const delay = 1000;
+        const delay = 500;
         let promise = Promise.resolve();
         shipArray.forEach(pos => {
             promise = promise.then(() => {
-                document.getElementById
+                let cell = document.getElementById(`${modifier}${pos}`);
+                cell.classList.remove('hit');
+                cell.classList.add('sunk');
             })
         })
     }
