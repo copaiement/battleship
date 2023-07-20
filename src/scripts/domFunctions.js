@@ -51,6 +51,29 @@ const domFunctions = () => {
         listenCells.splice(index, 1);
     }
     
+    // toggle setup btns
+    function showHideSetupBtns(show) {
+        const newGameContainer = document.querySelector('.setup-btns');
+        const setupContainer = document.querySelector('.new-game');
+        if (show) {
+            newGameContainer.classList.add('hidden');
+            setupContainer.classList.remove('hidden');
+        } else {
+            newGameContainer.classList.remove('hidden');
+            setupContainer.classList.add('hidden');
+        }
+    }
+
+    // toggle start button
+    function toggleStartBtn(show) {
+        const startContainer = document.querySelector('.start-btn');
+        if (show) {
+            startContainer.classList.remove('hidden');
+        } else {
+            startContainer.classList.add('hidden');
+        }
+    }
+
     function displayShip(shipsArray) {
         shipsArray.forEach(ship => {
             ship.position.forEach(val => {
