@@ -8,6 +8,20 @@
   <script src="./main.js" defer></script>
 </head>
 <body>
+
+  <div class="controls">
+    <div class="new-game hidden">
+      <button id="new-game">New Game</button>
+    </div>
+    <div class="setup-btns">
+      <button id="auto-place">Auto-Place Ships</button>
+      <button id="clear">Clear Ships</button>
+    </div>
+    <div class="start-btn hidden">
+      <button id="start">Start Game</button>
+    </div>
+  </div>
+
   <div class="content">
     <div class="boards">
       <div class="board-container">
@@ -21,10 +35,7 @@
         <div class="ship-list" id="comp-ship-list"></div>
       </div>
     </div>
-    <div class="controls">
-      <button id="start">Start Game</button>
 
-    </div>
     <div class="instructions">
       <p></p>
     </div>
