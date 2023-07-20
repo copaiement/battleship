@@ -5,7 +5,7 @@ const domFunctions = () => {
     const listenCells = [];
     
     function buildGameboards() {
-        const playerBoard = document.querySelector('.playerBoard');
+        const playerBoard = document.querySelector('#playerBoard');
         for (let y = 0; y <= 9; y++) {
             for (let x = 0; x <= 9; x++) {
                 const square = document.createElement('div');
@@ -16,7 +16,7 @@ const domFunctions = () => {
             }
         }
 
-        const computerBoard = document.querySelector('.computerBoard');
+        const computerBoard = document.querySelector('#computerBoard');
         for (let y = 0; y <= 9; y++) {
             for (let x = 0; x <= 9; x++) {
                 const square = document.createElement('div');

@@ -36,8 +36,7 @@ body {
     font-size: 24px;
 }
 
-.playerBoard,
-.computerBoard {
+.board {
     display: grid;
     width: 600px;
     height: 600px;
@@ -52,7 +51,7 @@ body {
     align-items: center;
 }
 
-.computerBoard > .square:hover {
+#computerBoard > .square:hover {
     background-color: rgb(194, 155, 155);
 }
 
