@@ -28,6 +28,11 @@ const domFunctions = () => {
             }
         }
     }
+    // add event listeners for buttons
+    function autoPlaceBtn() {
+        let btn = document.querySelector("#auto-place");
+        btn.addEventListener()
+    }
 
     // add event listeners to cells
     function addBoardListeners() {

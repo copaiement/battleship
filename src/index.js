@@ -10,3 +10,5 @@ const domfunc = domFunctions();
 domfunc.buildGameboards();
 domfunc.displayShip(game.ships);
 
+const game = game();
+
