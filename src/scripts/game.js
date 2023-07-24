@@ -1,12 +1,4 @@
 import gameboard from "./gameboard";
-import player from "./player";
-import domFunctions from "./domFunctions";
-
-// main game loop
-
-// create gameboards
-
-// ask user to place ships or select auto place
 
 // auto place enemy ships
 
@@ -17,23 +9,6 @@ import domFunctions from "./domFunctions";
 // show the winner
 
 const game = () => {
-    // create players
-    const user = player();
-    const computer = player();
-    const AIMode = 'easy';
-
-    // create initial gameboards
-    let playerBoard = gameboard();
-    let computerBoard = gameboard();
-    computerBoard.autoPlaceShips();
-
-    // create new gameboards (for gameover)
-    function createGameboards() {
-        playerBoard = gameboard();
-        computerBoard = gameboard();
-        computerBoard.autoPlaceShips();
-    }
-    
     // player fire
     function playerFire(move) {
         let attack = user.playerTurn(move, computerBoard);

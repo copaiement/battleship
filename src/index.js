@@ -10,6 +10,9 @@ const domfunc = domFunctions();
 domfunc.buildGameboards();
 domfunc.displayShip(game.ships);
 
-const game = game();
-const domfunc = domFunctions();
-domfunc.buildGameboards();
+// FULL CODE
+
+// create players
+const user = player();
+const computer = player();
+const AIMode = 'easy';

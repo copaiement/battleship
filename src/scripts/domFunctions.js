@@ -3,11 +3,6 @@
 const domFunctions = () => {
     // track cells with functioning event listeners
     const listenCells = [];
-    
-    function initializeDOM(gameboard) {
-        buildGameboards();
-        autoPlaceBtn();
-    }
 
     function buildGameboards() {
         const playerBoard = document.querySelector('#playerBoard');
