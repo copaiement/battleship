@@ -4,6 +4,11 @@ const domFunctions = () => {
     // track cells with functioning event listeners
     const listenCells = [];
     
+    function initializeDOM(gameboard) {
+        buildGameboards();
+        autoPlaceBtn();
+    }
+
     function buildGameboards() {
         const playerBoard = document.querySelector('#playerBoard');
         for (let y = 0; y <= 9; y++) {
