@@ -98,7 +98,7 @@ const gameboard = () => {
             if (shp.isSunk()) {
               sunk.push(shp);
               sunkMark = true;
-              returnVal.push(shp.shipType, shp.position); 
+              returnVal.push(shp.shipType, shp.position);
             }
           }
         });

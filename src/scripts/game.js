@@ -1,4 +1,5 @@
 import gameboard from "./gameboard";
+import player from "./player";
 
 // auto place enemy ships
 
@@ -9,15 +10,28 @@ import gameboard from "./gameboard";
 // show the winner
 
 const game = () => {
+  // create players
+  const user = player();
+  const computer = player();
+  const AIMode = 'easy';
+
+  // create gameboards
+  const playerBoard = gameboard();
+  const computerBoard = gameboard();
+
+  // auto place ships
+  playerBoard.autoPlaceShips();
+  computerBoard.autoPlaceShips();
+
   // player fire
   function playerFire(move) {
-    let attack = user.playerTurn(move, computerBoard);
+    const attack = user.playerTurn(move, computerBoard);
     updateBoard('computer', attack);
   }
 
   // computer fire
   function computerFire() {
-    let attack = computer.computerTurn(AIMode, playerBoard);
+    const attack = computer.computerTurn(AIMode, playerBoard);
     updateBoard('player', attack);
   }
 

@@ -58,7 +58,8 @@ const domFunctions = () => {
     
   // get click id
   function getClickId(e) {
-    console.log(e);
+    const cell = e.target.id.charAt(1) + e.target.id.charAt(2);
+    console.log(cell);
   }
 
   // toggle setup btns
