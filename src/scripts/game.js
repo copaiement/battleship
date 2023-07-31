@@ -9,24 +9,29 @@ import gameboard from "./gameboard";
 // show the winner
 
 const game = () => {
-    // player fire
-    function playerFire(move) {
-        let attack = user.playerTurn(move, computerBoard);
-        updateBoard('computer', attack);
-    }
+  // player fire
+  function playerFire(move) {
+    let attack = user.playerTurn(move, computerBoard);
+    updateBoard('computer', attack);
+  }
 
-    // computer fire
-    function computerFire() {
-        let attack = computer.computerTurn(AIMode, playerBoard);
-        updateBoard('player', attack);
-    }
+  // computer fire
+  function computerFire() {
+    let attack = computer.computerTurn(AIMode, playerBoard);
+    updateBoard('player', attack);
+  }
 
-    // check for win
-    function checkWin(board) {
-        if (board.sunk.length === 5) return true;
-        return false;
-    }
+  // check for win
+  function checkWin(board) {
+    if (board.sunk.length === 5) return true;
+    return false;
+  }
 
+  return {
+    playerFire,
+    computerFire,
+    checkWin,
+  };
+};
 
-}
-
+export default game;

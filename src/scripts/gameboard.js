@@ -15,9 +15,9 @@ const gameboard = () => {
 
     // check against boundary
     if (!isVertical) {
-      if (x + (shipLengths(id)-1) >= 10) return false;
+      if (x + (shipLengths(id) - 1) >= 10) return false;
     } else {
-      if (y + (shipLengths(id)-1) >= 10) return false;
+      if (y + (shipLengths(id) - 1) >= 10) return false;
     }
 
     // check against existing ships
@@ -35,12 +35,11 @@ const gameboard = () => {
       let currShips = [];
       ships.forEach(currShip => {
         currShip.position.forEach(val => {
-          currShips.push(val)
+          currShips.push(val);
         });
       });
       // check desired array against current array
       let repeat = currShips.filter(val => shipPlace.includes(val));
-      console.log(repeat);
       if (repeat.length !== 0) return false;
     }
 
@@ -64,7 +63,6 @@ const gameboard = () => {
         array.push(`${x}${j}`);
       }
     }
-    console.log(array, len);
     // create ship and add to player list
     ships.push(ship(id, array));
   }
@@ -78,7 +76,6 @@ const gameboard = () => {
         rand = getRandCoord();
         randVert = Math.random() < 0.5;
       }
-      console.log(id, rand, randVert);
       placeShip(id, rand, randVert);
     });
   }
