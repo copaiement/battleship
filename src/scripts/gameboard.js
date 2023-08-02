@@ -119,6 +119,12 @@ const gameboard = () => {
     }
     return returnVal;
   }
+
+  function checkWin() {
+    if (sunk.length === 5) return true;
+    return false;
+  }
+
   return {
     ships,
     hits,
@@ -127,6 +133,7 @@ const gameboard = () => {
     placeShip,
     autoPlaceShips,
     receiveAttack,
+    checkWin,
   };
 };
 

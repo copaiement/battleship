@@ -1,16 +1,15 @@
 import gameboard from "./gameboard";
 import player from "./player";
-import { buildGameboards } from "./domFunctions";
+import { buildGameboards, playerMove, updateBoard } from "./domFunctions";
 
-// auto place enemy ships
-
-// wait for user to fire
-
-// enemy fire
-
-// show the winner
+// main game loop
+// should step through game turn by turn using only methods
+// from other objects
 
 const game = () => {
+  // render boards
+  buildGameboards();
+
   // create players
   const user = player();
   const computer = player();
@@ -25,8 +24,32 @@ const game = () => {
   playerBoard.autoPlaceShips();
   computerBoard.autoPlaceShips();
 
-  // player goes first
-  
+  // set up current player variable (start with player)
+  let currentBoard = playerBoard;
+  let marker = 'p';
+
+  // while loop to run game
+  while (!currentBoard.checkWin()) {
+    // player turn
+    if (marker === 'p') {
+      // wait for move from domFunctions
+      const move = playerMove();
+      // player fire
+      const attack = user.playerTurn(move, computerBoard);
+      updateBoard('computer', attack);
+      // update current player
+      currentBoard = computerBoard;
+      marker = 'c';
+    // computer turn
+    } else {
+      // computer fire
+      const attack = computer.computerTurn(AIMode, playerBoard);
+      updateBoard('player', attack);
+      // update current player
+      currentBoard = playerBoard;
+      marker = 'p';
+    }
+  }
 
   // player fire
   function playerFire(move) {
@@ -40,16 +63,9 @@ const game = () => {
     updateBoard('player', attack);
   }
 
-  // check for win
-  function checkWin(board) {
-    if (board.sunk.length === 5) return true;
-    return false;
-  }
-
   return {
     playerFire,
     computerFire,
-    checkWin,
   };
 };
 

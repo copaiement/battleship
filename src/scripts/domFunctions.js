@@ -86,6 +86,12 @@ function toggleStartBtn(show) {
   }
 }
 
+// get player move
+async function playerMove() {
+  
+}
+
+// display ships
 function displayShip(shipsArray) {
   shipsArray.forEach(ship => {
     ship.position.forEach(val => {
@@ -191,5 +197,6 @@ function updateShipList(target, shipType) {
 
 export {
   buildGameboards,
-  addBoardListeners,
+  playerMove,
+  updateBoard,
 };
