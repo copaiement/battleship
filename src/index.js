@@ -5,6 +5,4 @@ import './style.css';
 // create game
 const newGame = game();
 
-// add event listeners for player move
-addBoardListeners();
- 
+

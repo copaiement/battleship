@@ -51,6 +51,12 @@ const game = () => {
     }
   }
 
+  // play one round
+  // called by event listener
+  function playRound(playerMove) {
+    
+  }
+
   // player fire
   function playerFire(move) {
     const attack = user.playerTurn(move, computerBoard);
@@ -61,6 +67,11 @@ const game = () => {
   function computerFire() {
     const attack = computer.computerTurn(AIMode, playerBoard);
     updateBoard('player', attack);
+  }
+
+  // game over
+  function gameOver() {
+
   }
 
   return {
