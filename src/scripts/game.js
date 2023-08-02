@@ -1,5 +1,6 @@
 import gameboard from "./gameboard";
 import player from "./player";
+import { buildGameboards } from "./domFunctions";
 
 // auto place enemy ships
 
@@ -20,8 +21,12 @@ const game = () => {
   const computerBoard = gameboard();
 
   // auto place ships
+  // TESTING ONLY - PLAYER PLACES OWN SHIPS EVENTUALLY
   playerBoard.autoPlaceShips();
   computerBoard.autoPlaceShips();
+
+  // player goes first
+  
 
   // player fire
   function playerFire(move) {
