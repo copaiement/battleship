@@ -1,6 +1,6 @@
 import gameboard from "./gameboard";
 import player from "./player";
-import { buildGameboards, playerMove, updateBoard } from "./domFunctions";
+import { buildGameboards, updateBoard, getListenCells } from "./domFunctions";
 
 // main game loop
 // should step through game turn by turn using only methods
@@ -23,10 +23,6 @@ const game = () => {
   // TESTING ONLY - PLAYER PLACES OWN SHIPS EVENTUALLY
   playerBoard.autoPlaceShips();
   computerBoard.autoPlaceShips();
-
-  // set up current player variable (start with player)
-  let currentBoard = playerBoard;
-  let marker = 'p';
 
   // while loop to run game
   while (!currentBoard.checkWin()) {
@@ -54,23 +50,49 @@ const game = () => {
   // play one round
   // called by event listener
   function playRound(playerMove) {
-    
-  }
-
-  // player fire
-  function playerFire(move) {
-    const attack = user.playerTurn(move, computerBoard);
+    // player shoots
+    const attack = user.playerTurn(playerMove, computerBoard);
+    // update board
     updateBoard('computer', attack);
+    // check for gameover
+    if (computerBoard.sunk.length === 5) {
+      return gameOver('player');
+    }
+    // computer shoots
+
+    // update board
+
+    // check for gameover
+    if (playerBoard.sunk.length === 5) {
+      return gameOver('computer');
+    }
   }
 
-  // computer fire
-  function computerFire() {
-    const attack = computer.computerTurn(AIMode, playerBoard);
-    updateBoard('player', attack);
+  // add board listeners
+  function addBoardListeners() {
+    const listenCells = getListenCells();
+    listenCells.forEach((cellId) => {
+      const cell = document.getElementById(cellId);
+      cell.addEventListener('click', getClickId);
+    });
+  }
+
+  function removeBoardListeners() {
+    const listenCells = getListenCells();
+    listenCells.forEach((cellId) => {
+      const cell = document.getElementById(cellId);
+      cell.removeEventListener('click', getClickId);
+    });
+  }
+
+  // clean input from event
+  function getClickId(e) {
+    const cell = e.target.id.charAt(1) + e.target.id.charAt(2);
+    playRound(cell);
   }
 
   // game over
-  function gameOver() {
+  function gameOver(winner) {
 
   }
 

@@ -28,33 +28,15 @@ function buildGameboards() {
   }
 }
 
-// get click id
-function getClickId(e) {
-  console.log('test');
-  const cell = e.target.id.charAt(1) + e.target.id.charAt(2);
-  return cell;
+// export listen cells
+function getListenCells() {
+  return listenCells;
 }
 
 // add event listeners for buttons
 function autoPlaceBtn() {
   let btn = document.querySelector("#auto-place");
   btn.addEventListener()
-}
-
-// add event listeners to cells
-function addBoardListeners() {
-  listenCells.forEach((cellId) => {
-    const cell = document.getElementById(cellId);
-    cell.addEventListener('click', getClickId);
-  });
-}
-
-// remove all event listeners
-function removeBoardListeners() {
-  listenCells.forEach((cellId) => {
-    const cell = document.getElementById(cellId);
-    cell.removeEventListener('click', getClickId);
-  });
 }
 
 // remove one listener from array
@@ -192,6 +174,6 @@ function updateShipList(target, shipType) {
 
 export {
   buildGameboards,
-  playerMove,
+  getListenCells,
   updateBoard,
 };
