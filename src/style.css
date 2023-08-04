@@ -56,11 +56,12 @@ body {
 }
 
 .ship {
-    background-color: blue;
+    background-color: rgb(184, 184, 184);
+    border: 2px solid black;
 }
 
 .sunk {
-    background-color: #2e2d8d;
+    background-color: rgb(57, 149, 189);
     transition: background-color 2s ease;
 }
 
@@ -69,11 +70,11 @@ body {
 }
 
 .hit {
-    background-color: red;
+    background: radial-gradient(red, rgb(142, 142, 145));
 }
 
 .miss {
-    background-color: yellow;
+    background: radial-gradient(rgb(231, 231, 231), rgb(73, 188, 241));
 }
 
 .instructions {

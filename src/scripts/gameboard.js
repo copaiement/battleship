@@ -33,7 +33,6 @@ const gameboard = () => {
       }
       // create array of all current ship placements
       const currShips = currentShipPlacements();
-      console.log(currShips);
       // check desired array against current array
       let repeat = currShips.filter(val => shipPlace.includes(val));
       if (repeat.length !== 0) return false;
