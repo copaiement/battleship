@@ -69,7 +69,7 @@ function toggleStartBtn(show) {
 }
 
 // display ships
-function displayShip(shipsArray) {
+function displayPlayerShips(shipsArray) {
   shipsArray.forEach(ship => {
     ship.position.forEach(val => {
       const cellID = document.getElementById(`p${val}`);
@@ -134,29 +134,6 @@ function animateShot(target, shot) {
 
 }
 
-// *********
-// REFERENCE animation from KNIGHTS project
-function moveKnight(e) {
-  removeKnightListeners();
-  const finish = idToArr(e.target.id);
-  const results = knightMoves(knightPos, finish);
-  displayResults(results);
-  const path = results[3];
-  const delay = 1000;
-  let promise = Promise.resolve();
-  path.forEach((move) => {
-    promise = promise.then(() => {
-      updateKnightPos(knightPos, move);
-      return new Promise((resolve) => {
-        setTimeout(resolve, delay);
-      });
-    });
-  });
-  promise.then(() => {
-    addKnightListeners();
-  });
-}
-
 // update visible list of ships with new sunk ships
 function updateShipList(target, shipType) {
 
@@ -165,5 +142,6 @@ function updateShipList(target, shipType) {
 export {
   buildGameboards,
   getListenCells,
+  displayPlayerShips,
   updateBoard,
 };

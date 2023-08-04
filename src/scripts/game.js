@@ -1,6 +1,11 @@
 import gameboard from "./gameboard";
 import player from "./player";
-import { buildGameboards, updateBoard, getListenCells } from "./domFunctions";
+import {
+  buildGameboards,
+  updateBoard,
+  getListenCells,
+  displayPlayerShips,
+} from "./domFunctions";
 
 // main game loop
 // should step through game turn by turn using only methods
@@ -23,6 +28,9 @@ const game = () => {
   // TESTING ONLY - PLAYER PLACES OWN SHIPS EVENTUALLY
   playerBoard.autoPlaceShips();
   computerBoard.autoPlaceShips();
+
+  // display player ships
+  displayPlayerShips(playerBoard.ships);
 
   // place board listeners
   addBoardListeners();

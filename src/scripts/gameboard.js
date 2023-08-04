@@ -32,12 +32,8 @@ const gameboard = () => {
         }
       }
       // create array of all current ship placements
-      let currShips = [];
-      ships.forEach(currShip => {
-        currShip.position.forEach(val => {
-          currShips.push(val);
-        });
-      });
+      const currShips = currentShipPlacements();
+      console.log(currShips);
       // check desired array against current array
       let repeat = currShips.filter(val => shipPlace.includes(val));
       if (repeat.length !== 0) return false;
@@ -45,6 +41,53 @@ const gameboard = () => {
 
     return true;
   }
+
+  function currentShipPlacements() {
+    // create array of all current ship placements
+    let currShips = [];
+
+    ships.forEach((currShip) => {
+      // figure out if ship is x or y direction and add endcaps
+      let dir;
+      let fixed;
+      let start;
+      let end;
+      if (currShip.position[0].charAt(0) === currShip.position[1].charAt(0)) {
+        dir = 'y';
+        fixed = parseInt(currShip.position[0].charAt(0), 10);
+        start = parseInt(currShip.position[0].charAt(1), 10);
+        end = parseInt(currShip.position[currShip.position.length - 1].charAt(1), 10);
+        // push endcap values
+        currShips.push(`${fixed}${start - 1}`);
+        currShips.push(`${fixed}${end + 1}`);
+      } else {
+        dir = 'x';
+        fixed = parseInt(currShip.position[0].charAt(1), 10);
+        start = parseInt(currShip.position[0].charAt(0), 10);
+        end = parseInt(currShip.position[currShip.position.length - 1].charAt(0), 10);
+        // push endcap values
+        currShips.push(`${start - 1}${fixed}`);
+        currShips.push(`${end + 1}${fixed}`);
+      }
+
+      // add body buffer
+      for (let i = 0; i <= (currShip.position.length - 1); i++) {
+        currShips.push(currShip.position[i]);
+        const x = parseInt(currShip.position[i].charAt(0), 10);
+        const y = parseInt(currShip.position[i].charAt(1), 10);
+        if (dir === 'x') {
+          if (y > 8) currShips.push(`${x}${y + 1}`);
+          if (y > 0) currShips.push(`${x}${y - 1}`);
+        } else {
+          if (x > 8) currShips.push(`${x + 1}${y}`);
+          if (x > 0) currShips.push(`${x - 1}${y}`);
+        }
+      }
+    });
+
+    return currShips;
+  }
+
   // removed placement validation
   function placeShip(id, start, isVertical) {
     // create ship array
