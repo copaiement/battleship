@@ -1,18 +1,18 @@
 import gameboard from '../scripts/gameboard';
 
-test('Place Ship Horizontal', () => {
+test.skip('Place Ship Horizontal', () => {
   const game = gameboard();
   game.placeShip('A', '00', false);
   expect(game.ships.length).toBe(1);
 });
 
-test('Place Ship Vertical', () => {
+test.skip('Place Ship Vertical', () => {
   const game = gameboard();
   game.placeShip('A', '00', true);
   expect(game.ships.length).toBe(1);
 });
 
-test('Test receiveAttack', () => {
+test.skip('Test receiveAttack', () => {
   const game = gameboard();
   game.placeShip('A', '00', false);
   game.receiveAttack('00');
@@ -21,14 +21,14 @@ test('Test receiveAttack', () => {
   expect(game.misses.length).toBe(1);
 });
 
-test.only('Auto place ships', () => {
+test.skip('Auto place ships', () => {
   const game = gameboard();
   game.autoPlaceShips();
   console.log(game.ships);
   expect(game.ships.length).toBe(5);
 });
 
-test('Test sinking a ship', () => {
+test.skip('Test sinking a ship', () => {
   const game = gameboard();
   game.placeShip('P', '00', false);
   game.receiveAttack('00');

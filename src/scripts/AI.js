@@ -22,7 +22,7 @@ function linearOffset(directionArr, direction, fixed) {
     poss.push(i);
   }
   // if max <= 8, add new possible max
-  if (minMax[1] >= 8) {
+  if (minMax[1] <= 8) {
     poss.push(minMax[1] + 1);
   }
   // if min >= 1, add new possible min
@@ -53,6 +53,7 @@ function randOffset(start) {
 function shootNextTo(sunkHits, hits, misses) {
   // find the unique hits that have not sunk ships
   const uniqueHits = [];
+
   hits.forEach((hit) => {
     if (!sunkHits.includes(hit)) uniqueHits.push(hit);
   });
@@ -64,6 +65,7 @@ function shootNextTo(sunkHits, hits, misses) {
     }
     return move;
   }
+
   // otherwise shoot along the current line
   // test first two entries of uniqueHits for direction
   const directionArr = [];
@@ -94,7 +96,7 @@ function AIPlay(AIMode, enemyBoard) {
   // create array of hits on sunk ships
   const sunkHits = [];
   enemyBoard.sunk.forEach((sunkShip) => {
-    sunkShip.array.forEach((hit) => sunkHits.push(hit));
+    sunkShip.position.forEach((hit) => sunkHits.push(hit));
   });
   // if there are hits not in sunk ships, shoot close
   if (enemyBoard.hits.length > sunkHits.length) {

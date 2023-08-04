@@ -121,20 +121,6 @@ function animateSinking(target, shipArray) {
     modifier = 'c';
   }
 
-  // // promise version
-  // const delay = 1000;
-  // let promise = Promise.resolve();
-  // shipArray.forEach((pos) => {
-  //   promise = promise.then(() => {
-  //     const cell = document.getElementById(`${modifier}${pos}`);
-  //     cell.classList.remove('hit');
-  //     cell.classList.add('sunk');
-  //     return new Promise((resolve) => {
-  //       setTimeout(resolve, delay);
-  //     });
-  //   });
-  // });
-
   // delay version (with css transition)
   shipArray.forEach((pos) => {
     const cell = document.getElementById(`${modifier}${pos}`);

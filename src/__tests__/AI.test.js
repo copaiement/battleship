@@ -44,5 +44,15 @@ test.skip('AI Play Test - MED - Two hits plus boundaries', () => {
   expect(play).toBe('10');
 });
 
-
-//function AIPlay(AIMode, enemyBoard) 
+test('AI Play Test - MED - Two hits plus multiple misses', () => {
+  const game = gameboard();
+  game.placeShip('D1', '34', true);
+  game.receiveAttack('34'); // top hit
+  game.receiveAttack('35'); // bottom hit
+  game.receiveAttack('33'); // top miss
+  game.receiveAttack('24'); // left miss
+  //game.receiveAttack('44'); // right miss
+  const play = AIPlay('med', game);
+  console.log(play);
+  expect(play).toBe('36');
+});

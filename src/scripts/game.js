@@ -13,7 +13,7 @@ const game = () => {
   // create players
   const user = player();
   const computer = player();
-  const AIMode = 'easy';
+  const AIMode = 'hard';
 
   // create gameboards
   const playerBoard = gameboard();
