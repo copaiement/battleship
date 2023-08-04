@@ -24,15 +24,14 @@ function linearOffset(directionArr, direction, fixed) {
   // if max <= 8, add new possible max
   if (minMax[1] >= 8) {
     poss.push(minMax[1] + 1);
-  } 
+  }
   // if min >= 1, add new possible min
   if (minMax[0] >= 1) {
-    poss.push(minMax[0] - 1)
+    poss.push(minMax[0] - 1);
   }
 
   // pick a random value from possibles and return
   nextLinear = poss[Math.floor(Math.random() * poss.length)];
-
 
   if (direction === 'x') {
     return `${nextLinear}${fixed}`;

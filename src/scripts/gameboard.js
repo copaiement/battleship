@@ -85,6 +85,7 @@ const gameboard = () => {
     let sunkMark = false;
     // create a return value variable
     const returnVal = [];
+    returnVal.push(move);
     // check against enemy ships
     ships.forEach((shp) => {
       // if ship not already sunk, check for hits
@@ -111,11 +112,9 @@ const gameboard = () => {
     } else if (hitMark) {
       hits.push(move);
       returnVal.push('hit');
-      returnVal.push(move);
     } else {
       misses.push(move);
       returnVal.push('miss');
-      returnVal.push(move);
     }
     return returnVal;
   }

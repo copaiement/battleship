@@ -24,48 +24,33 @@ const game = () => {
   playerBoard.autoPlaceShips();
   computerBoard.autoPlaceShips();
 
-  // while loop to run game
-  while (!currentBoard.checkWin()) {
-    // player turn
-    if (marker === 'p') {
-      // wait for move from domFunctions
-      const move = playerMove();
-      // player fire
-      const attack = user.playerTurn(move, computerBoard);
-      updateBoard('computer', attack);
-      // update current player
-      currentBoard = computerBoard;
-      marker = 'c';
-    // computer turn
-    } else {
-      // computer fire
-      const attack = computer.computerTurn(AIMode, playerBoard);
-      updateBoard('player', attack);
-      // update current player
-      currentBoard = playerBoard;
-      marker = 'p';
-    }
-  }
+  // place board listeners
+  addBoardListeners();
 
   // play one round
   // called by event listener
   function playRound(playerMove) {
+    // remove board listeners
+    removeBoardListeners();
     // player shoots
     const attack = user.playerTurn(playerMove, computerBoard);
     // update board
     updateBoard('computer', attack);
     // check for gameover
-    if (computerBoard.sunk.length === 5) {
+    if (computerBoard.checkWin()) {
       return gameOver('player');
     }
     // computer shoots
-
+    const compAttack = computer.computerTurn(AIMode, playerBoard);
     // update board
-
+    updateBoard('player', compAttack);
     // check for gameover
-    if (playerBoard.sunk.length === 5) {
+    if (playerBoard.checkWin()) {
       return gameOver('computer');
     }
+
+    // add board listeners in to get next player move
+    addBoardListeners();
   }
 
   // add board listeners
@@ -95,11 +80,6 @@ const game = () => {
   function gameOver(winner) {
 
   }
-
-  return {
-    playerFire,
-    computerFire,
-  };
 };
 
 export default game;

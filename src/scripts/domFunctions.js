@@ -41,7 +41,7 @@ function autoPlaceBtn() {
 
 // remove one listener from array
 function removeListenerFromArray(cell) {
-  const index = listenCells.IndexOf(cell);
+  const index = listenCells.indexOf(cell);
   listenCells.splice(index, 1);
 }
 
@@ -81,41 +81,34 @@ function displayShip(shipsArray) {
 
 // update boards with new attacks
 function updateBoard(target, attack) {
-  // cell id variable
-  let cellID;
   let modifier;
   if (target === 'player') {
     modifier = 'p';
   } else {
     modifier = 'c';
   }
+  console.log(attack);
+  // remove empty from cell classList
+  const cellID = document.getElementById(`${modifier}${attack[0]}`);
+  cellID.classList.remove('empty');
+
+  // remove cell event listener if computer board
+  if (modifier === 'c') removeListenerFromArray(`${modifier}${attack[0]}`);
 
   // if ship was sunk, update visible list, animate sinking
-  if (attack[0] !== 'hit' && attack[0] !== 'miss') {
-    updateShipList(target, attack[0]);
-    animateSinking(target, attack[1]);
+  if (attack[1] !== 'hit' && attack[1] !== 'miss') {
+    cellID.classList.add('hit');
+    updateShipList(target, attack[1]);
+    animateSinking(target, attack[2]);
   } else {
-    cellID = document.getElementById(`${modifier}${attack[1]}`);
-    // remove cell event listener if computer board
-    if (modifier === c) removeListenerFromArray(`${modifier}${attack[1]}`);
-
     // update cell based on attack value
-    if (attack[0] === 'hit') {
-      cellID.classList.remove('ship');
+    if (attack[1] === 'hit') {
       cellID.classList.add('hit');
-      animateShot(target, attack[1], 'hit', cellID);
+      animateShot(target, attack[0], 'hit', cellID);
     } else {
-      cellID.classList.remove('empty');
       cellID.classList.add('miss');
-      animateShot(target, attack[1], 'miss', cellID);
+      animateShot(target, attack[0], 'miss', cellID);
     }
-  }
-
-  // add or remove event listeners based on player
-  if (target === 'player') {
-    addBoardListeners();
-  } else {
-    removeBoardListeners();
   }
 }
 
@@ -127,16 +120,27 @@ function animateSinking(target, shipArray) {
   } else {
     modifier = 'c';
   }
-      
-  const delay = 500;
-  let promise = Promise.resolve();
-  shipArray.forEach(pos => {
-    promise = promise.then(() => {
-      let cell = document.getElementById(`${modifier}${pos}`);
-      cell.classList.remove('hit');
-      cell.classList.add('sunk');
-    })
-  })
+
+  // // promise version
+  // const delay = 1000;
+  // let promise = Promise.resolve();
+  // shipArray.forEach((pos) => {
+  //   promise = promise.then(() => {
+  //     const cell = document.getElementById(`${modifier}${pos}`);
+  //     cell.classList.remove('hit');
+  //     cell.classList.add('sunk');
+  //     return new Promise((resolve) => {
+  //       setTimeout(resolve, delay);
+  //     });
+  //   });
+  // });
+
+  // delay version (with css transition)
+  shipArray.forEach((pos) => {
+    const cell = document.getElementById(`${modifier}${pos}`);
+    cell.classList.remove('hit');
+    cell.classList.add('sunk');
+  });
 }
 
 // animate a single shot

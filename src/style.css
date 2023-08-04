@@ -60,11 +60,12 @@ body {
 }
 
 .sunk {
-    background-color: #535353;
+    background-color: #2e2d8d;
+    transition: background-color 2s ease;
 }
 
 .empty {
-    background-color: aquamarine;
+    background-color: rgb(73, 188, 241);
 }
 
 .hit {
