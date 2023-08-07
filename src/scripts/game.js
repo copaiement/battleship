@@ -5,6 +5,9 @@ import {
   updateBoard,
   getListenCells,
   displayPlayerShips,
+  showHideSetupBtns,
+  clearShipsBtn,
+  autoPlaceBtn,
 } from "./domFunctions";
 
 // main game loop
@@ -24,16 +27,20 @@ const game = () => {
   const playerBoard = gameboard();
   const computerBoard = gameboard();
 
-  // auto place ships
-  // TESTING ONLY - PLAYER PLACES OWN SHIPS EVENTUALLY
-  playerBoard.autoPlaceShips();
+  // auto place computer ships
   computerBoard.autoPlaceShips();
 
-  // display player ships
-  displayPlayerShips(playerBoard.ships);
+  // set up player btns
+  clearShipsBtn(playerBoard);
+  autoPlaceBtn(playerBoard);
 
-  // place board listeners
-  addBoardListeners();
+  // display player ships
+  // displayPlayerShips(playerBoard.ships);
+
+  function startGame() {
+    addBoardListeners();
+    showHideSetupBtns(false);
+  }
 
   // play one round
   // called by event listener

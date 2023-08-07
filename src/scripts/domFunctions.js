@@ -33,12 +33,6 @@ function getListenCells() {
   return listenCells;
 }
 
-// add event listeners for buttons
-function autoPlaceBtn() {
-  let btn = document.querySelector("#auto-place");
-  btn.addEventListener()
-}
-
 // remove one listener from array
 function removeListenerFromArray(cell) {
   const index = listenCells.indexOf(cell);
@@ -56,6 +50,26 @@ function showHideSetupBtns(show) {
     newGameContainer.classList.remove('hidden');
     setupContainer.classList.add('hidden');
   }
+}
+
+// add auto place button
+function autoPlaceBtn(board) {
+  const btn = document.getElementById('auto-place');
+  btn.addEventListener('click', () => {
+    clearPlayerShips(board.ships);
+    board.clearShips();
+    board.autoPlaceShips();
+    displayPlayerShips(board.ships);
+  });
+}
+
+// clear ships btn even listener
+function clearShipsBtn(board) {
+  const btn = document.getElementById('clear');
+  btn.addEventListener('click', () => {
+    clearPlayerShips(board.ships);
+    board.clearShips();
+  });
 }
 
 // toggle start button
@@ -79,6 +93,16 @@ function displayPlayerShips(shipsArray) {
   });
 }
 
+function clearPlayerShips(shipsArray) {
+  shipsArray.forEach(ship => {
+    ship.position.forEach(val => {
+      const cellID = document.getElementById(`p${val}`);
+      cellID.classList.remove('ship');
+      cellID.classList.add('empty');
+    })
+  });
+}
+
 // update boards with new attacks
 function updateBoard(target, attack) {
   let modifier;
@@ -87,7 +111,7 @@ function updateBoard(target, attack) {
   } else {
     modifier = 'c';
   }
-  console.log(attack);
+
   // remove empty from cell classList
   const cellID = document.getElementById(`${modifier}${attack[0]}`);
   cellID.classList.remove('empty');
@@ -142,6 +166,9 @@ function updateShipList(target, shipType) {
 export {
   buildGameboards,
   getListenCells,
+  clearShipsBtn,
+  autoPlaceBtn,
+  showHideSetupBtns,
   displayPlayerShips,
   updateBoard,
 };

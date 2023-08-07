@@ -8,7 +8,6 @@ const gameboard = () => {
   const hits = [];
   const misses = [];
 
-  // NEED TO ADD COLLISION DETECTION WITH OTHER SHIPS
   function checkShipPlacement(id, start, isVertical) {
     const x = parseInt(start.charAt(0));
     const y = parseInt(start.charAt(1));
@@ -83,7 +82,7 @@ const gameboard = () => {
         }
       }
     });
-
+    console.log(currShips);
     return currShips;
   }
 
@@ -107,6 +106,10 @@ const gameboard = () => {
     }
     // create ship and add to player list
     ships.push(ship(id, array));
+  }
+
+  function clearShips() {
+    ships.length = 0;
   }
 
   function autoPlaceShips() {
@@ -173,6 +176,7 @@ const gameboard = () => {
     sunk,
     placeShip,
     autoPlaceShips,
+    clearShips,
     receiveAttack,
     checkWin,
   };
