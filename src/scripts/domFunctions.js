@@ -40,15 +40,25 @@ function removeListenerFromArray(cell) {
 }
 
 // toggle setup btns
-function showHideSetupBtns(show) {
-  const newGameContainer = document.querySelector('.setup-btns');
-  const setupContainer = document.querySelector('.new-game');
+function toggleSetupBtns(show) {
+  const newGameContainer = document.querySelector('.new-game');
+  const setupContainer = document.querySelector('.setup-btns');
   if (show) {
     newGameContainer.classList.add('hidden');
     setupContainer.classList.remove('hidden');
   } else {
     newGameContainer.classList.remove('hidden');
     setupContainer.classList.add('hidden');
+  }
+}
+
+// toggle start button
+function toggleStartBtn(show) {
+  const startContainer = document.querySelector('.start-btn');
+  if (show) {
+    startContainer.classList.remove('hidden');
+  } else {
+    startContainer.classList.add('hidden');
   }
 }
 
@@ -60,6 +70,7 @@ function autoPlaceBtn(board) {
     board.clearShips();
     board.autoPlaceShips();
     displayPlayerShips(board.ships);
+    toggleStartBtn(true);
   });
 }
 
@@ -69,17 +80,8 @@ function clearShipsBtn(board) {
   btn.addEventListener('click', () => {
     clearPlayerShips(board.ships);
     board.clearShips();
+    toggleStartBtn(false);
   });
-}
-
-// toggle start button
-function toggleStartBtn(show) {
-  const startContainer = document.querySelector('.start-btn');
-  if (show) {
-    startContainer.classList.remove('hidden');
-  } else {
-    startContainer.classList.add('hidden');
-  }
 }
 
 // display ships
@@ -168,7 +170,8 @@ export {
   getListenCells,
   clearShipsBtn,
   autoPlaceBtn,
-  showHideSetupBtns,
+  toggleSetupBtns,
+  toggleStartBtn,
   displayPlayerShips,
   updateBoard,
 };

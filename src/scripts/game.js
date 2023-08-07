@@ -4,8 +4,8 @@ import {
   buildGameboards,
   updateBoard,
   getListenCells,
-  displayPlayerShips,
-  showHideSetupBtns,
+  toggleSetupBtns,
+  toggleStartBtn,
   clearShipsBtn,
   autoPlaceBtn,
 } from "./domFunctions";
@@ -33,13 +33,14 @@ const game = () => {
   // set up player btns
   clearShipsBtn(playerBoard);
   autoPlaceBtn(playerBoard);
-
+  addStartListener();
   // display player ships
   // displayPlayerShips(playerBoard.ships);
 
   function startGame() {
     addBoardListeners();
-    showHideSetupBtns(false);
+    toggleSetupBtns(false);
+    toggleStartBtn(false);
   }
 
   // play one round
@@ -83,6 +84,11 @@ const game = () => {
       const cell = document.getElementById(cellId);
       cell.removeEventListener('click', getClickId);
     });
+  }
+
+  function addStartListener() {
+    const btn = document.getElementById('start');
+    btn.addEventListener('click', startGame);
   }
 
   // clean input from event
