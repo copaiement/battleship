@@ -41,13 +41,10 @@ function removeListenerFromArray(cell) {
 
 // toggle setup btns
 function toggleSetupBtns(show) {
-  const newGameContainer = document.querySelector('.new-game');
   const setupContainer = document.querySelector('.setup-btns');
   if (show) {
-    newGameContainer.classList.add('hidden');
     setupContainer.classList.remove('hidden');
   } else {
-    newGameContainer.classList.remove('hidden');
     setupContainer.classList.add('hidden');
   }
 }
@@ -62,6 +59,21 @@ function toggleStartBtn(show) {
   }
 }
 
+function toggleNewGameBtn(show) {
+  const newGameContainer = document.querySelector('.new-game');
+  if (show) {
+    newGameContainer.classList.remove('hidden');
+  } else {
+    newGameContainer.classList.add('hidden');
+  }
+}
+
+// new game button
+function newGameBtn() {
+  const newGameBtn = document.getElementById('new-game');
+  
+}
+
 // add auto place button
 function autoPlaceBtn(board) {
   const btn = document.getElementById('auto-place');
@@ -74,7 +86,7 @@ function autoPlaceBtn(board) {
   });
 }
 
-// clear ships btn even listener
+// clear ships btn event listener
 function clearShipsBtn(board) {
   const btn = document.getElementById('clear');
   btn.addEventListener('click', () => {
@@ -172,6 +184,7 @@ export {
   autoPlaceBtn,
   toggleSetupBtns,
   toggleStartBtn,
+  toggleNewGameBtn,
   displayPlayerShips,
   updateBoard,
 };

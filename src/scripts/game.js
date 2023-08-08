@@ -8,6 +8,7 @@ import {
   toggleStartBtn,
   clearShipsBtn,
   autoPlaceBtn,
+  toggleNewGameBtn,
 } from "./domFunctions";
 
 // main game loop
@@ -41,6 +42,7 @@ const game = () => {
     addBoardListeners();
     toggleSetupBtns(false);
     toggleStartBtn(false);
+    toggleNewGameBtn(true);
   }
 
   // play one round
