@@ -2,6 +2,9 @@ import gameboard from "./gameboard";
 import player from "./player";
 import {
   buildGameboards,
+  clearGameboards,
+  setupMode,
+  playMode,
   updateBoard,
   getListenCells,
   toggleSetupBtns,
@@ -16,27 +19,29 @@ import {
 // from other objects
 
 const game = () => {
-  // render boards
-  buildGameboards();
-
-  // create players
+  // local vars
   const user = player();
   const computer = player();
-  const AIMode = 'hard';
-
-  // create gameboards
   const playerBoard = gameboard();
   const computerBoard = gameboard();
 
-  // auto place computer ships
-  computerBoard.autoPlaceShips();
+  // set AIMode to easy (default)
+  let AIMode = 'easy';
 
-  // set up player btns
-  clearShipsBtn(playerBoard);
-  autoPlaceBtn(playerBoard);
-  addStartListener();
-  // display player ships
-  // displayPlayerShips(playerBoard.ships);
+  function gameSetup() {
+    // render boards
+    buildGameboards();
+    // hide opponent board;
+    setupMode();
+    // auto place computer ships
+    computerBoard.autoPlaceShips();
+
+    // set up player btns
+    clearShipsBtn(playerBoard);
+    autoPlaceBtn(playerBoard);
+    addStartListener();
+    newGameBtn();
+  }
 
   function startGame() {
     addBoardListeners();
@@ -93,6 +98,26 @@ const game = () => {
     btn.addEventListener('click', startGame);
   }
 
+  // new game button
+  function newGameBtn() {
+    const newGameBtn = document.getElementById('new-game');
+    newGameBtn.addEventListener('click', startNewGame);
+  }
+
+  function startNewGame() {
+    // ask user if they are sure
+    // clear boards
+    clearGameboards();
+    // clear players
+    playerBoard.clearShips();
+    computerBoard.clearShips();
+    // setup new game
+    gameSetup();
+    // show/hide buttons
+    toggleSetupBtns(true);
+    toggleNewGameBtn(false);
+  }
+
   // clean input from event
   function getClickId(e) {
     const cell = e.target.id.charAt(1) + e.target.id.charAt(2);
@@ -101,8 +126,11 @@ const game = () => {
 
   // game over
   function gameOver(winner) {
-
+    console.log(winner);
   }
+
+  // run setup function
+  gameSetup();
 };
 
 export default game;

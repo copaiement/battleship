@@ -28,6 +28,29 @@ function buildGameboards() {
   }
 }
 
+function clearGameboards() {
+  const playerBoard = document.querySelector('#playerBoard');
+  while (playerBoard.firstChild) {
+    playerBoard.removeChild(playerBoard.lastChild);
+  }
+
+  const computerBoard = document.querySelector('#computerBoard');
+  while (computerBoard.firstChild) {
+    computerBoard.removeChild(computerBoard.lastChild);
+  }
+}
+
+// enter setup mode
+function setupMode() {
+  const computerContainer = document.querySelector('#computer-container');
+  computerContainer.classList.add('hidden');
+}
+
+function playMode() {
+  const computerContainer = document.querySelector('#computer-container');
+  computerContainer.classList.remove('hidden');
+}
+
 // export listen cells
 function getListenCells() {
   return listenCells;
@@ -66,12 +89,6 @@ function toggleNewGameBtn(show) {
   } else {
     newGameContainer.classList.add('hidden');
   }
-}
-
-// new game button
-function newGameBtn() {
-  const newGameBtn = document.getElementById('new-game');
-  
 }
 
 // add auto place button
@@ -179,6 +196,9 @@ function updateShipList(target, shipType) {
 
 export {
   buildGameboards,
+  clearGameboards,
+  setupMode,
+  playMode,
   getListenCells,
   clearShipsBtn,
   autoPlaceBtn,

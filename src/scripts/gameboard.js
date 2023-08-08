@@ -110,6 +110,9 @@ const gameboard = () => {
 
   function clearShips() {
     ships.length = 0;
+    sunk.length = 0;
+    hits.length = 0;
+    misses.length = 0;
   }
 
   function autoPlaceShips() {
