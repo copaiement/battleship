@@ -48,6 +48,7 @@ const game = () => {
     toggleSetupBtns(false);
     toggleStartBtn(false);
     toggleNewGameBtn(true);
+    playMode();
   }
 
   // play one round
@@ -106,6 +107,7 @@ const game = () => {
 
   function startNewGame() {
     // ask user if they are sure
+    
     // clear boards
     clearGameboards();
     // clear players

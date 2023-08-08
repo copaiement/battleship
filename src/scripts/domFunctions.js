@@ -42,13 +42,21 @@ function clearGameboards() {
 
 // enter setup mode
 function setupMode() {
+  // hide computer board
   const computerContainer = document.querySelector('#computer-container');
   computerContainer.classList.add('hidden');
+  // show ships placement pane
+  const shipsPlacement = document.querySelector('#ships-placements');
+  shipsPlacement.classList.remove('hidden');
 }
 
 function playMode() {
+  // show computer board
   const computerContainer = document.querySelector('#computer-container');
   computerContainer.classList.remove('hidden');
+  // hide ships placement pane
+  const shipsPlacement = document.querySelector('#ships-placements');
+  shipsPlacement.classList.add('hidden');
 }
 
 // export listen cells

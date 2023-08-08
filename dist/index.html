@@ -8,6 +8,17 @@
   <script src="./main.js" defer></script>
 </head>
 <body>
+
+  <div class="new-game-modal hidden">
+    <div class="new-game-modal-container">
+      <div class="new-game-modal-text">Start a New Game?</div>
+      <div class="new-game-btns">
+        <button class="new-game-btn" id="new-game-yes">Yes</button>
+        <button class="new-game-btn" id="new-game-cancel">Cancel</button>
+      </div>
+    </div>
+  </div>
+
   <div class="controls">
     <div class="new-game hidden">
       <button id="new-game">New Game</button>
@@ -22,6 +33,19 @@
   </div>
 
   <div class="content">
+    <div id="ships-placements">
+      <div class="ship-name" id="carrier">Carrier</div>
+      <div class="ship-img" id="carrier-img"></div>
+      <div class="ship-name" id="bship">Battleship</div>
+      <div class="ship-img" id="bship-img"></div>
+      <div class="ship-name" id="dest">Destroyer</div>
+      <div class="ship-img" id="dest-img"></div>
+      <div class="ship-name" id="sub">Submarine</div>
+      <div class="ship-img" id="sub-img"></div>
+      <div class="ship-name" id="pat">Patrol</div>
+      <div class="ship-img" id="pat-img"></div>
+    </div>
+
     <div class="boards">
       <div class="board-container">
         <div class="board-text">Your Board</div>
