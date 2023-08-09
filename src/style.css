@@ -1,3 +1,12 @@
+:root {
+  font-family: 'Staatliches', cursive;
+  font-size: 24px;
+  /* background colors */
+  --modal-grayout: rgba(187, 184, 184, 0.7);
+  /* styling */
+  --radius: .3rem;
+}
+
 body {
     background-color: #535353;
     margin: 0px;
@@ -84,27 +93,18 @@ body {
 }
 
 .hidden {
-    /* display: none; */
+    display: none;
     opacity: 0;
     transition: opacity 500ms ease-in-out
 }
 
-img {
-    max-width: 100%;
-    height: auto;
-    pointer-events: none;
-}
-
-/* UPDATE THESE FOR NEW GAME MODAL */
-.task-modal,
-.project-modal,
-.priority-modal,
-.edit-modal {
+.ng-modal {
   font-size: .75rem;
   align-items: center;
   display: flex;
   justify-content: center; 
   position: absolute;
+  /* z-index: 9999; */
   top: 0;
   bottom: 0;
   left: 0;
@@ -113,34 +113,15 @@ img {
   transition: all 0.4s;
 }
 
-.priority-modal-container {
-  background-color: var(--priority-modal);
-  border-radius: 0.5rem;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
+.ng-modal.hidden {
+  display: none;
 }
 
-.priority-btns {
-  display: flex;
+.ship-button {
 
 }
 
-.priority-btns > button {
-  width: 30%;
-  padding: .5rem;
+.ship-button.placed {
+
 }
 
-#priority-low {
-  background-color: var(--task-low);
-}
-
-#priority-medium {
-  background-color: var(--task-medium);
-}
-
-#priority-high {
-  background-color: var(--task-high);
-}

@@ -1,3 +1,4 @@
+import { shipLengths } from "./helpers";
 // DOM functions
 
 // set up array to track cells player can select
@@ -97,6 +98,18 @@ function toggleNewGameBtn(show) {
   } else {
     newGameContainer.classList.add('hidden');
   }
+}
+
+// new game modal
+function toggleNgModal() {
+  const modal = document.querySelector('.ng-modal');
+  modal.classList.toggle('hidden');
+}
+
+// new game button
+function newGameBtn() {
+  const newGame = document.getElementById('new-game');
+  newGame.addEventListener('click', toggleNgModal);
 }
 
 // add auto place button
@@ -202,6 +215,20 @@ function updateShipList(target, shipType) {
 
 }
 
+// functions for placing ships
+// event listeners for ship buttons
+function shipPlacementListeners() {
+  const btns = document.querySelectorAll('.ship-button');
+  btns.forEach((btn) => {
+    btn.addEventListener('click', placeShip);
+  });
+}
+
+function placeShip(e) {
+  const shipId = e.target.id;
+  const shipLen = shipLengths(shipId);
+}
+
 export {
   buildGameboards,
   clearGameboards,
@@ -212,7 +239,10 @@ export {
   autoPlaceBtn,
   toggleSetupBtns,
   toggleStartBtn,
+  newGameBtn,
+  toggleNgModal,
   toggleNewGameBtn,
   displayPlayerShips,
   updateBoard,
+  shipPlacementListeners,
 };

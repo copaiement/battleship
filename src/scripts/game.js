@@ -12,6 +12,8 @@ import {
   clearShipsBtn,
   autoPlaceBtn,
   toggleNewGameBtn,
+  newGameBtn,
+  toggleNgModal,
 } from "./domFunctions";
 
 // main game loop
@@ -40,6 +42,7 @@ const game = () => {
     clearShipsBtn(playerBoard);
     autoPlaceBtn(playerBoard);
     addStartListener();
+    addModalListeners();
     newGameBtn();
   }
 
@@ -99,15 +102,15 @@ const game = () => {
     btn.addEventListener('click', startGame);
   }
 
-  // new game button
-  function newGameBtn() {
-    const newGameBtn = document.getElementById('new-game');
-    newGameBtn.addEventListener('click', startNewGame);
+  function addModalListeners() {
+    const confirmBtn = document.getElementById('confirm');
+    const cancelBtn = document.getElementById('cancel');
+    confirmBtn.addEventListener('click', startNewGame);
+    cancelBtn.addEventListener('click', toggleNgModal);
   }
 
   function startNewGame() {
-    // ask user if they are sure
-    
+    toggleNgModal();
     // clear boards
     clearGameboards();
     // clear players
