@@ -9,7 +9,7 @@ function buildGameboards() {
   for (let y = 0; y <= 9; y++) {
     for (let x = 0; x <= 9; x++) {
       const square = document.createElement('div');
-      square.classList.add('square');
+      square.classList.add('player-square');
       square.classList.add('empty');
       square.id = `p${x}${y}`;
       playerBoard.appendChild(square);
@@ -20,7 +20,7 @@ function buildGameboards() {
   for (let y = 0; y <= 9; y++) {
     for (let x = 0; x <= 9; x++) {
       const square = document.createElement('div');
-      square.classList.add('square');
+      square.classList.add('comp-square');
       square.classList.add('empty');
       square.id = `c${x}${y}`;
       listenCells.push(square.id);
@@ -218,10 +218,7 @@ function updateShipList(target, shipType) {
 // functions for placing ships
 // event listeners for ship buttons
 function shipPlacementListeners() {
-  const btns = document.querySelectorAll('.ship-button');
-  btns.forEach((btn) => {
-    btn.addEventListener('click', placeShip);
-  });
+  const playerBoard = document.querySelector('#playerBoard');
 }
 
 function placeShip(e) {
