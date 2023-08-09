@@ -9,16 +9,6 @@
 </head>
 <body>
 
-  <div class="new-game-modal hidden">
-    <div class="new-game-modal-container">
-      <div class="new-game-modal-text">Start a New Game?</div>
-      <div class="new-game-btns">
-        <button class="new-game-btn" id="new-game-yes">Yes</button>
-        <button class="new-game-btn" id="new-game-cancel">Cancel</button>
-      </div>
-    </div>
-  </div>
-
   <div class="controls">
     <div class="new-game hidden">
       <button id="new-game">New Game</button>
@@ -34,15 +24,15 @@
 
   <div class="content">
     <div id="ships-placements">
-      <div class="ship-name" id="carrier">Carrier</div>
+      <button class="ship-button placed" id="A" disabled="true">Carrier</button>
       <div class="ship-img" id="carrier-img"></div>
-      <div class="ship-name" id="bship">Battleship</div>
+      <button class="ship-button" id="B">Battleship</button>
       <div class="ship-img" id="bship-img"></div>
-      <div class="ship-name" id="dest">Destroyer</div>
+      <button class="ship-button" id="D1">Destroyer</button>
       <div class="ship-img" id="dest-img"></div>
-      <div class="ship-name" id="sub">Submarine</div>
+      <button class="ship-button" id="D2">Submarine</button>
       <div class="ship-img" id="sub-img"></div>
-      <div class="ship-name" id="pat">Patrol</div>
+      <button class="ship-button" id="P">Patrol</button>
       <div class="ship-img" id="pat-img"></div>
     </div>
 
@@ -61,6 +51,14 @@
 
     <div class="instructions">
       <p></p>
+    </div>
+
+    <div class="ng-modal hidden">
+      <div class="ng-modal-text">Quit Current Game?</div>
+      <div class="ng-btns">
+        <button class="ng-btn" id="confirm">Confirm</button>
+        <button class="ng-btn" id="cancel">Cancel</button>
+      </div>
     </div>
 
   </div>
