@@ -1,4 +1,5 @@
 import { shipLengths } from "./helpers";
+import gameboard from "./gameboard";
 // DOM functions
 
 // set up array to track cells player can select
@@ -215,7 +216,7 @@ function updateShipList(target, shipType) {
 
 }
 
-// functions for placing ships
+// FUNCTIONS FOR PLACING SHIPS
 // event listeners for radion buttons
 function shipTypeListeners() {
   const radios = document.querySelectorAll('.rb');
@@ -236,9 +237,15 @@ function shipPlacementListeners() {
 }
 
 // globals for showShip
-let dir = 'x';
+let isVertical = false;
 let ship = 'A';
 let shipLen = 5;
+let board;
+
+// store gameboard 
+function storeGameboard(playerBoard) {
+  board = playerBoard;
+}
 
 function updateShip(e) {
   ship = e.value;
@@ -261,23 +268,19 @@ function buildShipCells(e) {
       if (i <= 8) shipArr.push(`c${x}${i}`);
     }
   }
-  showShip(shipArr, cellId);
+  showShip(shipArr, `${x}${y}`);
 }
 
-function showShip(shipArr, cellId) {
-  // if ship goes off board, show bad placement
-  if (shipArr.length < shipLen) {
-    shipArr.forEach((cell) => {
-      document.getElementById(`${cell}`).classList.add
-    })
-  }
+function showShip(shipArr, start) {
+  // if ship goes off board or hits another ship, show bad placement
+  if (!board.checkShipPlacement(ship, start, isVertical))
 }
 
 function rotateShip() {
-  if (dir === 'x') {
-    dir = 'y';
+  if (isVertical) {
+    isVertical = false;
   } else {
-    dir = 'x';
+    isVertical = true;
   }
 }
 
@@ -285,6 +288,7 @@ function mouseOutFns(e) {
   const square = document.getElementById(`${e.target.id}`);
   // remove click listener
   square.removeEventListener('dblclick', placeShip);
+  // rebuild board to remove new classes
 }
 
 function placeShip(e) {
@@ -308,4 +312,5 @@ export {
   displayPlayerShips,
   updateBoard,
   shipPlacementListeners,
+  storeGameboard,
 };

@@ -14,6 +14,7 @@ import {
   toggleNewGameBtn,
   newGameBtn,
   toggleNgModal,
+  storeGameboard,
 } from "./domFunctions";
 
 // main game loop
@@ -29,6 +30,9 @@ const game = () => {
 
   // set AIMode to easy (default)
   let AIMode = 'easy';
+
+  // store gameboard copy in DOMFunctions
+  storeGameboard(playerBoard);
 
   function gameSetup() {
     // render boards
