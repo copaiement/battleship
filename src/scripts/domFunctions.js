@@ -228,9 +228,10 @@ function shipTypeListeners() {
 function shipPlacementListeners() {
   const playerSquares = document.querySelectorAll('.player-square');
   playerSquares.forEach((square) => {
-    square.addEventListener('mouseover', showShip);
+    square.addEventListener('mouseover', buildShipCells);
+    square.addEventListener('mouseout', mouseOutFns);
     square.addEventListener('click', rotateShip);
-    square.addEventListener('dblclick', placeShip);
+    //square.addEventListener('dblclick', placeShip);
   });
 }
 
@@ -244,10 +245,32 @@ function updateShip(e) {
   shipLen = shipLengths(ship);
 }
 
-function showShip(e) {
+function buildShipCells(e) {
+  const cellId = e.target.id;
+  const x = cellId.charAt(1);
+  const y = cellId.charAt(2);
+  const shipArr = [];
   // direction = x
-  
+  if (dir === 'x') {
+    for (let i = x; i <= x + shipLen; i++) {
+      if (i <= 8) shipArr.push(`c${i}${y}`);
+    }
   // direction = y
+  } else {
+    for (let i = y; i <= y + shipLen; i++) {
+      if (i <= 8) shipArr.push(`c${x}${i}`);
+    }
+  }
+  showShip(shipArr, cellId);
+}
+
+function showShip(shipArr, cellId) {
+  // if ship goes off board, show bad placement
+  if (shipArr.length < shipLen) {
+    shipArr.forEach((cell) => {
+      document.getElementById(`${cell}`).classList.add
+    })
+  }
 }
 
 function rotateShip() {
@@ -256,6 +279,12 @@ function rotateShip() {
   } else {
     dir = 'x';
   }
+}
+
+function mouseOutFns(e) {
+  const square = document.getElementById(`${e.target.id}`);
+  // remove click listener
+  square.removeEventListener('dblclick', placeShip);
 }
 
 function placeShip(e) {
