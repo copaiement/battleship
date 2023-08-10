@@ -216,9 +216,46 @@ function updateShipList(target, shipType) {
 }
 
 // functions for placing ships
-// event listeners for ship buttons
+// event listeners for radion buttons
+function shipTypeListeners() {
+  const radios = document.querySelectorAll('.rb');
+  radios.forEach((radio) => {
+    radio.addEventListener('change', updateShip);
+  });
+}
+
+// event listeners for player board
 function shipPlacementListeners() {
-  const playerBoard = document.querySelector('#playerBoard');
+  const playerSquares = document.querySelectorAll('.player-square');
+  playerSquares.forEach((square) => {
+    square.addEventListener('mouseover', showShip);
+    square.addEventListener('click', rotateShip);
+    square.addEventListener('dblclick', placeShip);
+  });
+}
+
+// globals for showShip
+let dir = 'x';
+let ship = 'A';
+let shipLen = 5;
+
+function updateShip(e) {
+  ship = e.value;
+  shipLen = shipLengths(ship);
+}
+
+function showShip(e) {
+  // direction = x
+  
+  // direction = y
+}
+
+function rotateShip() {
+  if (dir === 'x') {
+    dir = 'y';
+  } else {
+    dir = 'x';
+  }
 }
 
 function placeShip(e) {
