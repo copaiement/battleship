@@ -1,5 +1,6 @@
 import { shipLengths } from "./helpers";
 import gameboard from "./gameboard";
+import game from "./game";
 // DOM functions
 
 // set up array to track cells player can select
@@ -240,16 +241,12 @@ function shipPlacementListeners() {
 let isVertical = false;
 let ship = 'A';
 let shipLen = 5;
-let board;
-
-// store gameboard 
-function storeGameboard(playerBoard) {
-  board = playerBoard;
-}
+let board = game.playerBoard;
 
 function updateShip(e) {
-  ship = e.value;
+  ship = e.target.value;
   shipLen = shipLengths(ship);
+  console.log(ship);
 }
 
 function buildShipCells(e) {
@@ -258,14 +255,14 @@ function buildShipCells(e) {
   const y = cellId.charAt(2);
   const shipArr = [];
   // direction = x
-  if (dir === 'x') {
+  if (!isVertical) {
     for (let i = x; i <= x + shipLen; i++) {
-      if (i <= 8) shipArr.push(`c${i}${y}`);
+      if (i <= 8) shipArr.push(`p${i}${y}`);
     }
   // direction = y
   } else {
     for (let i = y; i <= y + shipLen; i++) {
-      if (i <= 8) shipArr.push(`c${x}${i}`);
+      if (i <= 8) shipArr.push(`p${x}${i}`);
     }
   }
   showShip(shipArr, `${x}${y}`);
@@ -273,7 +270,16 @@ function buildShipCells(e) {
 
 function showShip(shipArr, start) {
   // if ship goes off board or hits another ship, show bad placement
-  if (!board.checkShipPlacement(ship, start, isVertical))
+  if (!board.checkShipPlacement(ship, start, isVertical)) {
+    shipArr.forEach((cell) => {
+      document.getElementById(cell).classList.add('placement-invalid');
+    });
+  } else {
+    shipArr.forEach((cell) => {
+      const square = document.getElementById(cell);
+      square.addEventListener('dblclick', placeShip);
+    });
+  }
 }
 
 function rotateShip() {
@@ -289,6 +295,8 @@ function mouseOutFns(e) {
   // remove click listener
   square.removeEventListener('dblclick', placeShip);
   // rebuild board to remove new classes
+  clearPlayerShips(board.ships);
+  displayPlayerShips(board.ships);
 }
 
 function placeShip(e) {
@@ -311,6 +319,6 @@ export {
   toggleNewGameBtn,
   displayPlayerShips,
   updateBoard,
+  shipTypeListeners,
   shipPlacementListeners,
-  storeGameboard,
 };

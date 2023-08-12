@@ -14,7 +14,8 @@ import {
   toggleNewGameBtn,
   newGameBtn,
   toggleNgModal,
-  storeGameboard,
+  shipTypeListeners,
+  shipPlacementListeners,
 } from "./domFunctions";
 
 // main game loop
@@ -31,9 +32,6 @@ const game = () => {
   // set AIMode to easy (default)
   let AIMode = 'easy';
 
-  // store gameboard copy in DOMFunctions
-  storeGameboard(playerBoard);
-
   function gameSetup() {
     // render boards
     buildGameboards();
@@ -48,6 +46,8 @@ const game = () => {
     addStartListener();
     addModalListeners();
     newGameBtn();
+    shipTypeListeners();
+    shipPlacementListeners();
   }
 
   function startGame() {
