@@ -87,6 +87,14 @@ body {
     background: radial-gradient(rgb(231, 231, 231), rgb(73, 188, 241));
 }
 
+.placement-invalid {
+  background-color: orange;
+}
+
+.placement-valid {
+  background-color: greenyellow;
+}
+
 .instructions {
     background-color: antiquewhite;
     font-size: larger;

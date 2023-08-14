@@ -139,6 +139,11 @@ const domFunctions = (playerBoard, computerBoard) => {
     modal.classList.toggle('hidden');
   }
 
+  function toggleRotateBtn() {
+    const rotateBtn = document.querySelector('.rotate-btn');
+    rotateBtn.classList.toggle('hidden');
+  }
+
   // new game button
   function newGameBtn() {
     const newGame = document.getElementById('new-game');
@@ -172,7 +177,6 @@ const domFunctions = (playerBoard, computerBoard) => {
     shipsArray.forEach((ship) => {
       ship.position.forEach((val) => {
         const cellID = document.getElementById(`p${val}`);
-        cellID.classList.remove('empty');
         cellID.classList.add('ship');
       });
     });
@@ -182,7 +186,6 @@ const domFunctions = (playerBoard, computerBoard) => {
     shipsArray.forEach((ship) => {
       ship.position.forEach((val) => {
         const cellID = document.getElementById(`p${val}`);
-        cellID.classList.remove('ship');
         cellID.classList.add('empty');
       });
     });
@@ -259,12 +262,12 @@ const domFunctions = (playerBoard, computerBoard) => {
 
   // event listeners for player board
   function shipPlacementListeners() {
+    const rotateBtn = document.querySelector('.rotate-btn');
+    rotateBtn.addEventListener('click', rotateShip);
     const playerSquares = document.querySelectorAll('.player-square');
     playerSquares.forEach((square) => {
       square.addEventListener('mouseover', buildShipCells);
       square.addEventListener('mouseout', mouseOutFns);
-      square.addEventListener('click', rotateShip);
-      //square.addEventListener('dblclick', placeShip);
     });
   }
 
@@ -272,33 +275,32 @@ const domFunctions = (playerBoard, computerBoard) => {
   let isVertical = false;
   let ship = 'A';
   let shipLen = 5;
-
+  const shipArr = []
   function updateShip(e) {
     ship = e.target.value;
     shipLen = shipLengths(ship);
-    console.log(ship);
   }
 
   function buildShipCells(e) {
     const cellId = e.target.id;
-    const x = cellId.charAt(1);
-    const y = cellId.charAt(2);
-    const shipArr = [];
+    const x = parseInt(cellId.charAt(1), 10);
+    const y = parseInt(cellId.charAt(2), 10);
+    shipArr.length = 0;
     // direction = x
     if (!isVertical) {
-      for (let i = x; i <= x + shipLen; i++) {
-        if (i <= 8) shipArr.push(`p${i}${y}`);
+      for (let i = x; i < x + shipLen; i++) {
+        if (i <= 9) shipArr.push(`p${i}${y}`);
       }
     // direction = y
     } else {
-      for (let i = y; i <= y + shipLen; i++) {
-        if (i <= 8) shipArr.push(`p${x}${i}`);
+      for (let i = y; i < y + shipLen; i++) {
+        if (i <= 9) shipArr.push(`p${x}${i}`);
       }
     }
-    showShip(shipArr, `${x}${y}`);
+    showShip(`${x}${y}`);
   }
 
-  function showShip(shipArr, start) {
+  function showShip(start) {
     // if ship goes off board or hits another ship, show bad placement
     if (!playerBoard.checkShipPlacement(ship, start, isVertical)) {
       shipArr.forEach((cell) => {
@@ -307,9 +309,19 @@ const domFunctions = (playerBoard, computerBoard) => {
     } else {
       shipArr.forEach((cell) => {
         const square = document.getElementById(cell);
-        square.addEventListener('dblclick', placeShip);
+        square.classList.add('placement-valid');
+        square.addEventListener('click', placeShip);
       });
     }
+  }
+
+  function clearShip() {
+    shipArr.forEach((cell) => {
+      const square = document.getElementById(`${cell}`);
+      square.className = '';
+      square.classList.add('player-square');
+      square.classList.add('empty');
+    });
   }
 
   function rotateShip() {
@@ -323,16 +335,18 @@ const domFunctions = (playerBoard, computerBoard) => {
   function mouseOutFns(e) {
     const square = document.getElementById(`${e.target.id}`);
     // remove click listener
-    square.removeEventListener('dblclick', placeShip);
+    square.removeEventListener('click', placeShip);
+    // clear classes from cell
+    clearShip();
     // rebuild board to remove new classes
-    console.log(playerBoard);
     clearPlayerShips(playerBoard.ships);
     displayPlayerShips(playerBoard.ships);
   }
 
   function placeShip(e) {
-    const shipId = e.target.id;
-    
+    const square = e.target.id;
+    const start = `${square.charAt(1)}${square.charAt(2)}`;
+    playerBoard.placeShip(ship, start, isVertical);
   }
 
   return {
@@ -349,6 +363,7 @@ const domFunctions = (playerBoard, computerBoard) => {
     toggleSetupBtns,
     toggleStartBtn,
     toggleNewGameBtn,
+    toggleRotateBtn,
     playMode,
     removeBoardListeners,
     clearGameboards,

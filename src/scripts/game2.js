@@ -38,6 +38,7 @@ const game = () => {
     domFunc.toggleSetupBtns(false);
     domFunc.toggleStartBtn(false);
     domFunc.toggleNewGameBtn(true);
+    domFunc.toggleRotateBtn();
     domFunc.playMode();
   }
 
