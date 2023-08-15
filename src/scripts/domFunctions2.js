@@ -154,10 +154,10 @@ const domFunctions = (playerBoard, computerBoard) => {
   function autoPlaceBtn() {
     const btn = document.getElementById('auto-place');
     btn.addEventListener('click', () => {
-      clearPlayerShips(newGame.playerBoard.ships);
-      newGame.playerBoard.clearShips();
-      newGame.playerBoard.autoPlaceShips();
-      displayPlayerShips(newGame.playerBoard.ships);
+      clearPlayerShips(playerBoard.ships);
+      playerBoard.clearShips();
+      playerBoard.autoPlaceShips();
+      displayPlayerShips(playerBoard.ships);
       toggleStartBtn(true);
     });
   }
@@ -166,8 +166,9 @@ const domFunctions = (playerBoard, computerBoard) => {
   function clearShipsBtn() {
     const btn = document.getElementById('clear');
     btn.addEventListener('click', () => {
-      clearPlayerShips(newGame.playerBoard.ships);
-      newGame.playerBoard.clearShips();
+      clearPlayerShips(playerBoard.ships);
+      // clear player object
+      playerBoard.clearShips();
       toggleStartBtn(false);
     });
   }
@@ -177,6 +178,8 @@ const domFunctions = (playerBoard, computerBoard) => {
     shipsArray.forEach((ship) => {
       ship.position.forEach((val) => {
         const cellID = document.getElementById(`p${val}`);
+        cellID.className = '';
+        cellID.classList.add('player-square');
         cellID.classList.add('ship');
       });
     });
@@ -186,6 +189,8 @@ const domFunctions = (playerBoard, computerBoard) => {
     shipsArray.forEach((ship) => {
       ship.position.forEach((val) => {
         const cellID = document.getElementById(`p${val}`);
+        cellID.className = '';
+        cellID.classList.add('player-square');
         cellID.classList.add('empty');
       });
     });
@@ -275,7 +280,7 @@ const domFunctions = (playerBoard, computerBoard) => {
   let isVertical = false;
   let ship = 'A';
   let shipLen = 5;
-  const shipArr = []
+  const shipArr = [];
   function updateShip(e) {
     ship = e.target.value;
     shipLen = shipLengths(ship);
@@ -344,9 +349,13 @@ const domFunctions = (playerBoard, computerBoard) => {
   }
 
   function placeShip(e) {
+    // check if ship already exists
     const square = e.target.id;
+    // place ship
     const start = `${square.charAt(1)}${square.charAt(2)}`;
     playerBoard.placeShip(ship, start, isVertical);
+    // if all ships placed toggle start btn
+    if (playerBoard.ships.length === 5) toggleStartBtn(true);
   }
 
   return {

@@ -8,9 +8,20 @@ const gameboard = () => {
   const hits = [];
   const misses = [];
 
+  function checkIfPlaced(id) {
+    let returnVal = false;
+    ships.forEach((shp) => {
+      if (shp.shipType === id) returnVal = true;
+    });
+    return returnVal;
+  }
+  
   function checkShipPlacement(id, start, isVertical) {
     const x = parseInt(start.charAt(0));
     const y = parseInt(start.charAt(1));
+
+    // check if already placed
+    if (checkIfPlaced(id)) return false;
 
     // check against boundary
     if (!isVertical) {
@@ -86,7 +97,6 @@ const gameboard = () => {
     return currShips;
   }
 
-  // removed placement validation
   function placeShip(id, start, isVertical) {
     // create ship array
     const array = [];
