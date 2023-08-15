@@ -1,5 +1,5 @@
 import { shipLengths } from './helpers';
-import { startGame, startNewGame, playRound } from '../index';
+import { startGame, startNewGame, playRound, setGameAI } from '../index';
 
 // ******************
 // DOM functions
@@ -102,6 +102,20 @@ const domFunctions = (playerBoard) => {
     const cancelBtn = document.getElementById('cancel');
     confirmBtn.addEventListener('click', startNewGame);
     cancelBtn.addEventListener('click', toggleNgModal);
+  }
+
+  function addDiffListener() {
+    const diffSlider = document.querySelector('input[type=checkbox]');
+    diffSlider.addEventListener('change', () => {
+      const diffDisplay = document.querySelector('.diffy-readout');
+      if (diffDisplay.textContent === 'Easy') {
+        diffDisplay.textContent = 'Hard';
+        setGameAI('hard');
+      } else {
+        diffDisplay.textContent = 'Easy';
+        setGameAI('easy');
+      }
+    });
   }
 
   // toggle setup btns
@@ -276,6 +290,17 @@ const domFunctions = (playerBoard) => {
     });
   }
 
+  // event listeners for player board
+  function removeShipPlacementListeners() {
+    const rotateBtn = document.querySelector('.rotate-btn');
+    rotateBtn.removeEventListener('click', rotateShip);
+    const playerSquares = document.querySelectorAll('.player-square');
+    playerSquares.forEach((square) => {
+      square.removeEventListener('mouseover', buildShipCells);
+      square.removeEventListener('mouseout', mouseOutFns);
+    });
+  }
+
   // globals for showShip
   let isVertical = false;
   let ship = 'A';
@@ -368,7 +393,9 @@ const domFunctions = (playerBoard) => {
     newGameBtn,
     shipTypeListeners,
     shipPlacementListeners,
+    removeShipPlacementListeners,
     addBoardListeners,
+    addDiffListener,
     toggleSetupBtns,
     toggleStartBtn,
     toggleNewGameBtn,

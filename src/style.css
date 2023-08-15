@@ -130,7 +130,8 @@ body {
   transition: all 0.4s;
 }
 
-.ng-modal.hidden {
+.ng-modal.hidden,
+.list.hidden {
   display: none;
 }
 

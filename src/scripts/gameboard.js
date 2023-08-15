@@ -17,18 +17,15 @@ const gameboard = () => {
   }
   
   function checkShipPlacement(id, start, isVertical) {
-    const x = parseInt(start.charAt(0));
-    const y = parseInt(start.charAt(1));
+    const x = parseInt(start.charAt(0), 10);
+    const y = parseInt(start.charAt(1), 10);
 
     // check if already placed
     if (checkIfPlaced(id)) return false;
 
     // check against boundary
-    if (!isVertical) {
-      if (x + (shipLengths(id) - 1) >= 10) return false;
-    } else {
-      if (y + (shipLengths(id) - 1) >= 10) return false;
-    }
+    if (!isVertical && x + (shipLengths(id) - 1) >= 10) return false;
+    if (isVertical && y + (shipLengths(id) - 1) >= 10) return false;
 
     // check against existing ships
     if (ships.length !== 0) {
@@ -44,7 +41,7 @@ const gameboard = () => {
       // create array of all current ship placements
       const currShips = currentShipPlacements();
       // check desired array against current array
-      let repeat = currShips.filter(val => shipPlace.includes(val));
+      const repeat = currShips.filter((val) => shipPlace.includes(val));
       if (repeat.length !== 0) return false;
     }
 
@@ -53,7 +50,7 @@ const gameboard = () => {
 
   function currentShipPlacements() {
     // create array of all current ship placements
-    let currShips = [];
+    const currShips = [];
 
     ships.forEach((currShip) => {
       // figure out if ship is x or y direction and add endcaps
@@ -102,14 +99,14 @@ const gameboard = () => {
     const array = [];
     const len = shipLengths(id);
     if (!isVertical) {
-      const y = parseInt(start.charAt(1));
-      const x = parseInt(start.charAt(0));
+      const y = parseInt(start.charAt(1), 10);
+      const x = parseInt(start.charAt(0), 10);
       for (let i = x; i < (x + len); i++) {
         array.push(`${i}${y}`);
       }
     } else {
-      const y = parseInt(start.charAt(1));
-      const x = parseInt(start.charAt(0));
+      const y = parseInt(start.charAt(1), 10);
+      const x = parseInt(start.charAt(0), 10);
       for (let j = y; j < (y + len); j++) {
         array.push(`${x}${j}`);
       }

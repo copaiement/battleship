@@ -13,7 +13,6 @@ const user = player();
 const computer = player();
 const playerBoard = gameboard();
 const computerBoard = gameboard();
-console.log(playerBoard);
 // set AIMode to easy (default)
 let AIMode = 'easy';
 
@@ -33,6 +32,7 @@ function gameSetup() {
   domFunc.autoPlaceBtn(playerBoard);
   domFunc.addStartListener();
   domFunc.addModalListeners();
+  domFunc.addDiffListener();
   domFunc.newGameBtn();
   domFunc.shipTypeListeners();
   domFunc.shipPlacementListeners();
@@ -40,6 +40,7 @@ function gameSetup() {
 
 function startGame() {
   domFunc.addBoardListeners();
+  domFunc.removeShipPlacementListeners();
   domFunc.toggleSetupBtns(false);
   domFunc.toggleStartBtn(false);
   domFunc.toggleNewGameBtn(true);
@@ -87,11 +88,17 @@ function startNewGame() {
   // show/hide buttons
   domFunc.toggleSetupBtns(true);
   domFunc.toggleNewGameBtn(false);
+  // add placement listeners
+  domFunc.shipPlacementListeners();
 }
 
 // game over
 function gameOver(winner) {
   console.log(winner);
+}
+
+function setGameAI(diff) {
+  AIMode = diff;
 }
 
 // run setup function
@@ -102,4 +109,5 @@ export {
   startGame,
   startNewGame,
   playRound,
+  setGameAI,
 };
