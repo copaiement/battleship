@@ -90,7 +90,6 @@ const gameboard = () => {
         }
       }
     });
-    console.log(currShips);
     return currShips;
   }
 

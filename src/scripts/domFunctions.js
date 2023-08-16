@@ -10,18 +10,18 @@ const domFunctions = (playerBoard) => {
   const listenCells = [];
 
   function buildGameboards() {
-    const playerBoard = document.querySelector('#playerBoard');
+    const playerBoardDOM = document.querySelector('#playerBoard');
     for (let y = 0; y <= 9; y++) {
       for (let x = 0; x <= 9; x++) {
         const square = document.createElement('div');
         square.classList.add('player-square');
         square.classList.add('empty');
         square.id = `p${x}${y}`;
-        playerBoard.appendChild(square);
+        playerBoardDOM.appendChild(square);
       }
     }
 
-    const computerBoard = document.querySelector('#computerBoard');
+    const computerBoardDOM = document.querySelector('#computerBoard');
     for (let y = 0; y <= 9; y++) {
       for (let x = 0; x <= 9; x++) {
         const square = document.createElement('div');
@@ -29,20 +29,20 @@ const domFunctions = (playerBoard) => {
         square.classList.add('empty');
         square.id = `c${x}${y}`;
         listenCells.push(square.id);
-        computerBoard.appendChild(square);
+        computerBoardDOM.appendChild(square);
       }
     }
   }
 
   function clearGameboards() {
-    const playerBoard = document.querySelector('#playerBoard');
-    while (playerBoard.firstChild) {
-      playerBoard.removeChild(playerBoard.lastChild);
+    const playerBoardDOM = document.querySelector('#playerBoard');
+    while (playerBoardDOM.firstChild) {
+      playerBoardDOM.removeChild(playerBoardDOM.lastChild);
     }
 
-    const computerBoard = document.querySelector('#computerBoard');
-    while (computerBoard.firstChild) {
-      computerBoard.removeChild(computerBoard.lastChild);
+    const computerBoardDOM = document.querySelector('#computerBoard');
+    while (computerBoardDOM.firstChild) {
+      computerBoardDOM.removeChild(computerBoardDOM.lastChild);
     }
   }
 
@@ -148,9 +148,12 @@ const domFunctions = (playerBoard) => {
   }
 
   // new game modal
-  function toggleNgModal() {
+  function toggleNgModal(message = 'Quit Current Game?') {
     const modal = document.querySelector('.ng-modal');
     modal.classList.toggle('hidden');
+
+    const msg = document.querySelector('.ng-modal-text');
+    msg.textContent = message;
   }
 
   function toggleRotateBtn() {
@@ -169,6 +172,7 @@ const domFunctions = (playerBoard) => {
     const btn = document.getElementById('auto-place');
     btn.addEventListener('click', () => {
       clearPlayerShips(playerBoard.ships);
+      deactivateAllRadios();
       playerBoard.clearShips();
       playerBoard.autoPlaceShips();
       displayPlayerShips(playerBoard.ships);
@@ -181,6 +185,7 @@ const domFunctions = (playerBoard) => {
     const btn = document.getElementById('clear');
     btn.addEventListener('click', () => {
       clearPlayerShips(playerBoard.ships);
+      activateRadios();
       // clear player object
       playerBoard.clearShips();
       toggleStartBtn(false);
@@ -229,16 +234,13 @@ const domFunctions = (playerBoard) => {
     // if ship was sunk, update visible list, animate sinking
     if (attack[1] !== 'hit' && attack[1] !== 'miss') {
       cellID.classList.add('hit');
-      updateShipList(target, attack[1]);
       animateSinking(target, attack[2]);
     } else {
       // update cell based on attack value
       if (attack[1] === 'hit') {
         cellID.classList.add('hit');
-        animateShot(target, attack[0], 'hit', cellID);
       } else {
         cellID.classList.add('miss');
-        animateShot(target, attack[0], 'miss', cellID);
       }
     }
   }
@@ -258,16 +260,6 @@ const domFunctions = (playerBoard) => {
       cell.classList.remove('hit');
       cell.classList.add('sunk');
     });
-  }
-
-  // animate a single shot
-  function animateShot(target, shot) {
-
-  }
-
-  // update visible list of ships with new sunk ships
-  function updateShipList(target, shipType) {
-
   }
 
   // FUNCTIONS FOR PLACING SHIPS
@@ -373,14 +365,37 @@ const domFunctions = (playerBoard) => {
     displayPlayerShips(playerBoard.ships);
   }
 
+  function deactivateAllRadios() {
+    const shipList = ['A', 'B', 'D1', 'D2', 'P'];
+    shipList.forEach((shp) => {
+      document.getElementById(shp).disabled = true;
+    });
+  }
+
+  function deactivateRadio(shp) {
+    document.getElementById(shp).disabled = true;
+  }
+
+  function activateRadios() {
+    const shipList = ['A', 'B', 'D1', 'D2', 'P'];
+    shipList.forEach((shp) => {
+      document.getElementById(shp).disabled = false;
+    });
+  }
+
   function placeShip(e) {
-    // check if ship already exists
+    deactivateRadio(ship);
     const square = e.target.id;
     // place ship
     const start = `${square.charAt(1)}${square.charAt(2)}`;
     playerBoard.placeShip(ship, start, isVertical);
     // if all ships placed toggle start btn
     if (playerBoard.ships.length === 5) toggleStartBtn(true);
+  }
+
+  function gameOver(winner) {
+    const msg = `Game over! The winner is ${winner}! Play again?`;
+    toggleNgModal(msg);
   }
 
   return {
@@ -405,6 +420,7 @@ const domFunctions = (playerBoard) => {
     removeBoardListeners,
     clearGameboards,
     updateBoard,
+    gameOver,
   };
 };
 

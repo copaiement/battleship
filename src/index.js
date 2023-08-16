@@ -94,7 +94,7 @@ function startNewGame() {
 
 // game over
 function gameOver(winner) {
-  console.log(winner);
+  domFunc.gameOver(winner);
 }
 
 function setGameAI(diff) {
